@@ -17,7 +17,7 @@ const Slider = (props) => {
             })
     }, [])
     useEffect(() => {
-        if ((resArr.length > 0) && (window.location.href == 'http://localhost:3000/home')) {
+        if ((resArr.length > 0) && (window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/home')) {
             let slideIndex = 0;
             async function showSlides() {
                 let i;
@@ -34,7 +34,7 @@ const Slider = (props) => {
                     dots[i].className = dots[i].className.replace(" active", "");
                 }
                 function f1() {
-                    if (window.location.href == 'http://localhost:3000/home') {
+                    if (window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/home') {
                         slides[slideIndex - 1].style.display = "block";
                         dots[slideIndex - 1].className += " active";
                     }

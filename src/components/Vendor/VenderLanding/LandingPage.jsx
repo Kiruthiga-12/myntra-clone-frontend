@@ -28,9 +28,9 @@ const LandingPage = (props) => {
         }
         fun1()
         window.addEventListener('scroll', (e) => {
-            if (window.scrollY <= 437 && window.location.href == 'http://localhost:3000/partnerhome')
+            if (window.scrollY <= 437 && window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/partnerhome')
                 document.getElementById('vendor_register_hide').style.visibility = 'hidden';
-            else if (window.scrollY > 437 && window.location.href == 'http://localhost:3000/partnerhome') {
+            else if (window.scrollY > 437 && window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/partnerhome') {
                 document.getElementById('vendor_register_hide').style.visibility = 'visible';
             }
         })
@@ -38,7 +38,7 @@ const LandingPage = (props) => {
 
 
     useEffect(() => {
-        if (arr.length > 0 && window.location.href == 'http://localhost:3000/partnerhome') {
+        if (arr.length > 0 && window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/partnerhome') {
             let slideIndex = 0;
             function showSlides() {
                 let i;
@@ -51,7 +51,7 @@ const LandingPage = (props) => {
                     slideIndex = 1;
                 }
                 function f1() {
-                    if (window.location.href == 'http://localhost:3000/partnerhome')
+                    if (window.location.href == 'https://kiruthiga-12-myntra-clone-frontend.onrender.com/partnerhome')
                         slides[slideIndex - 1].style.display = "block";
                 }
                 f1()
