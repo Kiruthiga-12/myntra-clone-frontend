@@ -43,7 +43,7 @@ const Cartpayment = (props) => {
     const [notinstock, setNotInStock] = useState(0);
     const [pdet, setPDet] = useState([]);
     //load Stripe;
-    let stripeval = loadStripe("pk_test_51O2Z4hSIr3vWUuJE0XmSYTsbcFCIWUAvnPiasInu1YKZoyFra5QiuNbO8TEG1aMlEXAuvFxJbaLFMZYC0djqYrQw00is58Hv2F")
+    let stripeval = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
     useEffect(() => {
         document.title = 'PAYMENT';
         //to get total amount

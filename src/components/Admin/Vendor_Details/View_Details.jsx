@@ -9,7 +9,7 @@ import { loadStripe } from '@stripe/stripe-js'
 const View_Details = (props) => {
     const [seloption, setSelOption] = useState('view order');
     //load stripe
-    let stripeval = loadStripe("pk_test_51O2Z4hSIr3vWUuJE0XmSYTsbcFCIWUAvnPiasInu1YKZoyFra5QiuNbO8TEG1aMlEXAuvFxJbaLFMZYC0djqYrQw00is58Hv2F")
+    let stripeval = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
     return (<>
         <Typography sx={{ fontWeight: "bold", padding: "20px", textDecoration: "underline" }}>Select Option: </Typography>
         <Select sx={{ marginLeft: '20px' }} value={seloption} onChange={(e) => setSelOption(e.target.value)}>
