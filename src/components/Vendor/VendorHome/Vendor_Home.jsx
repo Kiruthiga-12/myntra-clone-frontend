@@ -88,7 +88,11 @@ const Vendor_Home = (props) => {
                 }))
         }
         else {
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/vendor_detail_email?email=${props.vendor_login}`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/vendor_detail_email?email=${props.vendor_login}`, {
+                headers: {
+                    'vendor_key': localStorage.getItem('vendor_key')
+                }
+            })
                 .then((data) => {
                     if (data.data.vendor_id == undefined)
                         setMsg(data.data.error)
@@ -103,7 +107,11 @@ const Vendor_Home = (props) => {
     }, [])
     useEffect(() => {
         setLoader(true);
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/vendor_detail_email?email=${props.vendor_login}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/vendor_detail_email?email=${props.vendor_login}`, {
+            headers: {
+                'vendor_key': localStorage.getItem('vendor_key')
+            }
+        })
             .then((data) => {
                 if (data.data.vendor_id == undefined)
                     setMsg(data.data.error)
