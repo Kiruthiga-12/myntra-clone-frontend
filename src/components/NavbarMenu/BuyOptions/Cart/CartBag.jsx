@@ -447,7 +447,7 @@ const CartBag = (props) => {
                                         '&:hover': { backgroundColor: 'transparent', color: 'black' }
                                     }} onClick={(e) => {
                                         if (current_cnt == 0) {
-                                            alert('Select any item to remove from bag')
+                                            alert('Select any item to remove from bag list')
                                         }
                                         else if (current_cnt > 0)
                                             setRemFlag(true);
@@ -460,7 +460,7 @@ const CartBag = (props) => {
                                     }}
                                         onClick={(e) => {
                                             if (current_cnt == 0) {
-                                                alert('Select any item to remove from bag')
+                                                alert('Select any item to remove from bag list')
                                             }
                                             else if (current_cnt > 0)
                                                 setWishFlag(true);
