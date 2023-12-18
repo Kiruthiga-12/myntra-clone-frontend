@@ -48,7 +48,7 @@ const Signup = (props) => {
     const [user_profile, setUserProfile] = useState()
     const [imageflag, setImageFlag] = useState(false);
     const [loader, setLoader] = useState(true);
-    const [buttonloader, setButtonLoader] = useState(true)
+    const [buttonloader, setButtonLoader] = useState(false);
     useEffect(() => {
         document.title = 'Myntra';
         function func2() {
@@ -93,6 +93,38 @@ const Signup = (props) => {
         if (activecnt != undefined && removedcnt != undefined)
             pwd();
     }, [removedcnt, activecnt])
+
+    useEffect(() => {
+        function pwd2() {
+            setButtonLoader(true);
+            let formData = new FormData();
+            formData.append('user_id', userid);
+            formData.append('mobileno', mobno);
+            formData.append('password', signuppwd);
+            formData.append('fullname', signupfullname);
+            formData.append('mail_id', signupmail);
+            formData.append('gender', signupgender);
+            formData.append('alternate_mobile', signup_altmobile);
+            formData.append('user_profile', user_profile);
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/user_signup`,
+                formData, {
+                headers: {
+                    "Content-Type": 'multipart-formdata'
+                }
+            }).then((data) => {
+                if (data.data.user_id !== undefined) {
+                    setCredentials(true)
+                }
+                else if (data.data.user_id === undefined) {
+                    setCredentials(false)
+                }
+                setDisable(false);
+                setButtonLoader(false);
+            })
+        }
+        if (namestatus === true && mailstatus === true && altmobstatus === true)
+            pwd2();
+    }, [namestatus, mailstatus, altmobstatus])
     return (
         <>
             {loader == true ? <Loader /> : <>
@@ -270,38 +302,7 @@ const Signup = (props) => {
                                         setAltMobileStatus(false);
                                     }
                                 }
-                                async function pwd2() {
-                                    setButtonLoader(true);
-                                    let formData = new FormData();
-                                    formData.append('user_id', userid);
-                                    formData.append('mobileno', mobno);
-                                    formData.append('password', signuppwd);
-                                    formData.append('fullname', signupfullname);
-                                    formData.append('mail_id', signupmail);
-                                    formData.append('gender', signupgender);
-                                    formData.append('alternate_mobile', signup_altmobile);
-                                    formData.append('user_profile', user_profile);
-                                    axios.post(`${process.env.REACT_APP_BACKEND_URL}/user_signup`,
-                                        formData, {
-                                        headers: {
-                                            "Content-Type": 'multipart-formdata'
-                                        }
-                                    }).then((data) => {
-                                        if (data.data.user_id !== undefined) {
-                                            setCredentials(true)
-                                        }
-                                        else if (data.data.user_id === undefined) {
-                                            setCredentials(false)
-                                        }
-                                        setDisable(false);
-                                        setButtonLoader(false);
-                                    })
-                                }
                                 pwd1();
-                                if (namestatus === true && mailstatus === true && altmobstatus === true)
-                                    pwd2();
-                                else
-                                    toast.error('Please fill correct details!', { autoClose: 3000, position: "bottom-right" })
                             }} />
                         <span id='sign_error_message' style={{ marginLeft: '40px', color: "red", marginTop: '30px', fontFamily: 'TimesNewRoman', display: 'inline-block' }}></span>
                         {buttonloader == true ? <Loader /> : <>
