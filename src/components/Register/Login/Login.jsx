@@ -35,6 +35,25 @@ const Login = (props) => {
         props.setNavBar('navbar');
         props.setFooter('');
     }, [])
+    useEffect(() => {
+        async function pwd2() {
+            setLoader(true);
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/user_login_signup`, { userdata: mobileno }).
+                then((data) => {
+                    setDisable(false);
+                    if (data.data.length > 0) {
+                        setCredentials(true)
+                    }
+                    else {
+                        setCredentials(false);
+                        props.getUserMobile(mobileno);
+                    }
+                    setLoader(false);
+                })
+        }
+        if (mobstatus == true)
+            pwd2()
+    }, [mobstatus])
     return (
         <>
             <ToastContainer />
@@ -56,25 +75,7 @@ const Login = (props) => {
                                     setMobStatus(false)
                                 }
                             }
-                            async function pwd2() {
-                                setLoader(true);
-                                axios.post(`${process.env.REACT_APP_BACKEND_URL}/user_login_signup`, { userdata: mobileno }).
-                                    then((data) => {
-                                        setDisable(false);
-                                        if (data.data.length > 0) {
-                                            setCredentials(true)
-                                        }
-                                        else {
-                                            setCredentials(false);
-                                            props.getUserMobile(mobileno);
-                                        }
-                                        setLoader(false);
-                                    })
-                            }
                             pwd1()
-                            if (mobstatus == true)
-                                pwd2()
-
                         }} />
                     <Typography variant='body1' sx={{ color: 'grey', paddingLeft: '40px', paddingTop: '50px', fontWeight: 'bold', fontSize: '14px' }}>By continuing, I agree to the
                         <NavLink style={{
