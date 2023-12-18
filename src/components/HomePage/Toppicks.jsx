@@ -9,11 +9,14 @@ import Loader from "../Loader/Loader";
 const Toppicks = (props) => {
     const [toppicksArr, setTopPicksArr] = useState([]);
     const [loader, setLoader] = useState(true);
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_toppick`)
-        .then((data) => {
-            (data.data.length > 0) ? setTopPicksArr(data.data.slice()) : setTopPicksArr([])
-            setLoader(false)
-        })
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_toppick`)
+            .then((data) => {
+                (data.data.length > 0) ? setTopPicksArr(data.data.slice()) : setTopPicksArr([])
+                setLoader(false)
+            })
+    }, [])
+
     return (
         <>
             <Heading title='TOP PICKS' />

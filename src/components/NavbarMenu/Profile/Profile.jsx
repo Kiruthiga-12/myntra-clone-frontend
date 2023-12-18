@@ -32,7 +32,7 @@ const Profile = (props) => {
     const [userid, setUserId] = useState();
     const [loader, setLoader] = useState(true);
     const [add_userdet, setAddUserDet] = useState();
-    const [msg, setMsg] = useState('');
+    const [msg, setMsg] = useState();
     useEffect(() => {
         if (props.profilemenu != '')
             props.setProfileMenu('dashboard');
