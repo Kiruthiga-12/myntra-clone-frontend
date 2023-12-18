@@ -79,40 +79,46 @@ const SavedAddresses = (props) => {
                 </Box>
                 {/* Default Address */}
                 <Typography variant='body1' sx={{ marginTop: '40px', fontWeight: 'bolder', fontSize: '15px' }}>DEFAULT ADDRESS</Typography>
-                <Box sx={{ marginTop: '20px', boxShadow: '2px 2px 2px lightgrey,-2px -2px 2px lightgrey', paddingLeft: '10px' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography sx={{ flex: 11, fontWeight: 'bold', color: 'grey', paddingTop: '20px' }}>{adrname}</Typography>
-                        <div style={{ marginRight: '20px', width: '50px', backgroundColor: 'lightgrey', padding: '6px 10px', textAlign: 'center', borderRadius: '20px', fontSize: "12px", textTransform: "uppercase" }}>{adrtype}</div>
+                {adrname != undefined && <>
+
+                    <Box sx={{ marginTop: '20px', boxShadow: '2px 2px 2px lightgrey,-2px -2px 2px lightgrey', paddingLeft: '10px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography sx={{ flex: 11, fontWeight: 'bold', color: 'grey', paddingTop: '20px' }}>{adrname}</Typography>
+                            <div style={{ marginRight: '20px', width: '50px', backgroundColor: 'lightgrey', padding: '6px 10px', textAlign: 'center', borderRadius: '20px', fontSize: "12px", textTransform: "uppercase" }}>{adrtype}</div>
+                        </Box>
+                        <Typography sx={{ marginTop: '10px' }}>{adraddr}</Typography>
+                        <Typography >{adrtown} - {adrpin}</Typography>
+                        <Typography sx={{ marginTop: '10px' }}>Mobile: {adrmob}</Typography>
+                        <div style={{ marginTop: '30px', borderBottom: '1px solid lightgrey', backgroundColor: 'grey' }}></div>
+                        <Button disableTouchRipple sx={{ height: '50px', fontSize: '16px', fontWeight: 'bold', width: '49%', '&:hover': { backgroundColor: 'transparent' } }}
+                            onClick={() => {
+                                setEditFlag(true);
+                                setChangeName(adrname);
+                                setChangeMob(adrmob);
+                                setChangePin(adrpin);
+                                setChangeAddr(adraddr);
+                                setChangeTown(adrtown);
+                                setChangeAdrType(adrtype);
+                                setChangeAdrId(adrid);
+                            }}>EDIT</Button>
+                        <span style={{ color: 'lightgrey', fontSize: '20px' }}>|</span>
+                        <Button disableTouchRipple sx={{ height: '50px', fontSize: '16px', fontWeight: 'bold', width: '49%', '&:hover': { backgroundColor: 'transparent' } }}
+                            onClick={() => {
+                                axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_adr_adrid?user_id=${document.getElementById('userlogin_userid').innerText}&adr_id=${adrid}`)
+                                    .then((data) => {
+                                        if (data.data.deletedCount == 1) {
+                                            toast.success('Address deleted Successfully!', { autoClose: 3000 })
+                                        }
+                                        else {
+                                            toast.error('Error Please retry!!');
+                                        }
+                                    })
+                            }}>REMOVE</Button>
                     </Box>
-                    <Typography sx={{ marginTop: '10px' }}>{adraddr}</Typography>
-                    <Typography >{adrtown} - {adrpin}</Typography>
-                    <Typography sx={{ marginTop: '10px' }}>Mobile: {adrmob}</Typography>
-                    <div style={{ marginTop: '30px', borderBottom: '1px solid lightgrey', backgroundColor: 'grey' }}></div>
-                    <Button disableTouchRipple sx={{ height: '50px', fontSize: '16px', fontWeight: 'bold', width: '49%', '&:hover': { backgroundColor: 'transparent' } }}
-                        onClick={() => {
-                            setEditFlag(true);
-                            setChangeName(adrname);
-                            setChangeMob(adrmob);
-                            setChangePin(adrpin);
-                            setChangeAddr(adraddr);
-                            setChangeTown(adrtown);
-                            setChangeAdrType(adrtype);
-                            setChangeAdrId(adrid);
-                        }}>EDIT</Button>
-                    <span style={{ color: 'lightgrey', fontSize: '20px' }}>|</span>
-                    <Button disableTouchRipple sx={{ height: '50px', fontSize: '16px', fontWeight: 'bold', width: '49%', '&:hover': { backgroundColor: 'transparent' } }}
-                        onClick={() => {
-                            axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_adr_adrid?user_id=${document.getElementById('userlogin_userid').innerText}&adr_id=${adrid}`)
-                                .then((data) => {
-                                    if (data.data.deletedCount == 1) {
-                                        toast.success('Address deleted Successfully!', { autoClose: 3000 })
-                                    }
-                                    else {
-                                        toast.error('Error Please retry!!');
-                                    }
-                                })
-                        }}>REMOVE</Button>
-                </Box>
+                </>}
+                {adrname == undefined && <>
+                    <Typography sx={{ fontWeight: "bold", padding: "30px", textAlign: "center", color: "rgb(243, 66, 140)", fontSize: "20px" }}>No Default Address Found</Typography>
+                </>}
                 {/* Other Addresses */}
                 <Typography variant='body1' sx={{ marginTop: '40px', fontWeight: 'bolder', fontSize: '15px' }}>OTHER ADDRESSES</Typography>
                 {adr.length > 0 && adr.map((li, index) => {
@@ -174,7 +180,9 @@ const SavedAddresses = (props) => {
                             </Box>
                         </>)
                 })}
-
+                {adr.length == 0 && <>
+                    <Typography sx={{ fontWeight: "bold", padding: "30px", textAlign: "center", color: "rgb(243, 66, 140)", fontSize: "20px" }}>No Other Addresses found!!</Typography>
+                </>}
                 {
                     editflag === true && <>
                         < Dialog open={editflag} sx={{ margin: 'auto', width: '800px', height: '590px' }}   >
