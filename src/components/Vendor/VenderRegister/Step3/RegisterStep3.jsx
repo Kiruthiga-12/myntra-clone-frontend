@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../../Loader/Loader';
-import { setNavBar, setFooter } from "../../../Redux_Store/Action_Creators";
+import { setNavBar, setFooter, getVendorLogin } from "../../../Redux_Store/Action_Creators";
 const RegisterStep3 = (props) => {
 
     //pattern Definition
@@ -129,6 +129,7 @@ const RegisterStep3 = (props) => {
                     if (signupdet.data.vendor_id != undefined && perce.data.vendor_id != undefined &&
                         status.data.vendor_id != undefined && otpdel.data.deletedCount == 1) {
                         setCredentials(true);
+                        props.getVendorLogin(props.vendor_email)
                     }
                     else {
                         setCredentials(false);
@@ -317,7 +318,8 @@ const mapStateToProps = (cstate) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setNavBar: (data) => dispatch(setNavBar(data)),
-        setFooter: (data) => dispatch(setFooter(data))
+        setFooter: (data) => dispatch(setFooter(data)),
+        getVendorLogin: (data) => dispatch(getVendorLogin(data))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterStep3);
