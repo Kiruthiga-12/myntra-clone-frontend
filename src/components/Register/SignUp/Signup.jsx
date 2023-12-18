@@ -70,9 +70,9 @@ const Signup = (props) => {
         const removed_user = axios.get(`${process.env.REACT_APP_BACKEND_URL}/removed_user_cnt`);
         axios.all([active_user, removed_user])
             .then(axios.spread(function (active_cnt, removed_cnt) {
-                active_cnt.data.data == 0 ? setUserId(1) : setActiveCnt(active_cnt.data.data)
+                active_cnt.data.data == 0 ? setActiveCnt(0) : setActiveCnt(active_cnt.data.data)
                 removed_cnt.data.data != 0 ? setRemovedCnt(removed_cnt.data.data) : setRemovedCnt(0)
-                setMobNo(document.getElementById('mobno').value);
+                setMobNo(props.user_mobile);
             }))
         props.setNavBar('navbar');
         props.setFooter('');
@@ -85,11 +85,14 @@ const Signup = (props) => {
             else if (removedcnt > activecnt) {
                 setUserId(removedcnt + 1)
             }
+            else if (removedcnt == activecnt && activecnt == 0) {
+                setUserId(1)
+            }
             setLoader(false);
         }
         if (activecnt != undefined && removedcnt != undefined)
             pwd();
-    }, [removedcnt])
+    }, [removedcnt, activecnt])
     return (
         <>
             {loader == true ? <Loader /> : <>

@@ -69,7 +69,7 @@ const RegisterStep3 = (props) => {
             const removed_vendor = axios.get(`${process.env.REACT_APP_BACKEND_URL}/removed_vendor_cnt`);
             axios.all([active_vendor, removed_vendor])
                 .then(axios.spread(function (active_cnt, removed_cnt) {
-                    active_cnt.data.data == 0 ? setVendorId(1) : setActiveCnt(active_cnt.data.data);
+                    active_cnt.data.data == 0 ? setActiveCnt(0) : setActiveCnt(active_cnt.data.data);
                     removed_cnt.data.data != 0 ? setRemovedCnt(removed_cnt.data.data) : setRemovedCnt(0)
                     setLoader(false);
                 }))
@@ -86,6 +86,9 @@ const RegisterStep3 = (props) => {
             }
             else if (removedcnt > activecnt) {
                 setVendorId(removedcnt + 1)
+            }
+            else if (removedcnt == activecnt && activecnt == 0) {
+                setVendorId(1)
             }
             setLoader(false);
         }
