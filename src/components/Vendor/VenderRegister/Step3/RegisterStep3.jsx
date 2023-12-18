@@ -95,6 +95,52 @@ const RegisterStep3 = (props) => {
         if (activecnt != undefined && removedcnt != undefined)
             pwd();
     }, [removedcnt, activecnt])
+    useEffect(() => {
+        async function pwd5() {
+            setButtonLoader(true)
+            let formData = new FormData();
+            formData.append('vendor_id', vendorid);
+            formData.append('vendor_mobile', props.vendor_mobile);
+            formData.append('company_mailid', props.vendor_email);
+            formData.append('vendor_firstname', fname);
+            formData.append('vendor_lastname', lname);
+            formData.append('vendor_password', signuppwd);
+            formData.append('vendor_profile', vendor_profile);
+            const vendorsignup = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_signup`,
+                formData, {
+                headers: {
+                    "Content-Type": 'multipart-formdata'
+                }
+            })
+            const perc = axios.post(`${process.env.REACT_APP_BACKEND_URL}/percentage`, {
+                vendor_id: vendorid,
+                email: props.vendor_email,
+                stepno: '0',
+                perc: 0
+            })
+            const vendorstatus = axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_status`, {
+                vendor_id: vendorid,
+                email: props.vendor_email,
+                status: 'pending submission'
+            })
+            const deleteotp = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_vendor_otp?email=${props.vendor_email}`)
+            await axios.all([vendorsignup, perc, vendorstatus, deleteotp])
+                .then(axios.spread(function (signupdet, perce, status, otpdel) {
+                    if (signupdet.data.vendor_id != undefined && perce.data.vendor_id != undefined &&
+                        status.data.vendor_id != undefined && otpdel.data.deletedCount == 1) {
+                        setCredentials(true);
+                    }
+                    else {
+                        setCredentials(false);
+                    }
+                    setDisable(false);
+                    setButtonLoader(false);
+                }))
+        }
+        if (firstname === true && lastname === true && imageflag == true && pwdflag === true) {
+            pwd5()
+        }
+    }, [firstname, lastname, imageflag, pwdflag])
     return (
         <>
             {loader == true ? <Loader /> : <>
@@ -216,56 +262,10 @@ const RegisterStep3 = (props) => {
                                             setPwdFlag(false);
                                         }
                                     }
-                                    async function pwd5() {
-                                        setButtonLoader(true)
-                                        let formData = new FormData();
-                                        formData.append('vendor_id', vendorid);
-                                        formData.append('vendor_mobile', props.vendor_mobile);
-                                        formData.append('company_mailid', props.vendor_email);
-                                        formData.append('vendor_firstname', fname);
-                                        formData.append('vendor_lastname', lname);
-                                        formData.append('vendor_password', signuppwd);
-                                        formData.append('vendor_profile', vendor_profile);
-                                        const vendorsignup = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_signup`,
-                                            formData, {
-                                            headers: {
-                                                "Content-Type": 'multipart-formdata'
-                                            }
-                                        })
-                                        const perc = axios.post(`${process.env.REACT_APP_BACKEND_URL}/percentage`, {
-                                            vendor_id: vendorid,
-                                            email: props.vendor_email,
-                                            stepno: '0',
-                                            perc: 0
-                                        })
-                                        const vendorstatus = axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_status`, {
-                                            vendor_id: vendorid,
-                                            email: props.vendor_email,
-                                            status: 'pending submission'
-                                        })
-                                        const deleteotp = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_vendor_otp?email=${props.vendor_email}`)
-                                        await axios.all([vendorsignup, perc, vendorstatus, deleteotp])
-                                            .then(axios.spread(function (signupdet, perce, status, otpdel) {
-                                                if (signupdet.data.vendor_id != undefined && perce.data.vendor_id != undefined &&
-                                                    status.data.vendor_id != undefined && otpdel.data.deletedCount == 1) {
-                                                    setCredentials(true);
-                                                }
-                                                else {
-                                                    setCredentials(false);
-                                                }
-                                                setDisable(false);
-                                                setButtonLoader(false);
-                                            }))
-                                    }
                                     pwd1();
                                     pwd2();
                                     pwd3();
                                     pwd4();
-                                    if (firstname === true && lastname === true && imageflag == true && pwdflag === true) {
-                                        pwd5()
-                                    }
-                                    else
-                                        toast.error('Please fill correct details!', { autoClose: 3000, position: "bottom-right" })
                                 }} /><br />
                             <FormControlLabel sx={{ marginLeft: '-230px' }} label='Show Password' control={<Checkbox
                                 onChange={(e, newValue) => setCheckState(newValue)}
