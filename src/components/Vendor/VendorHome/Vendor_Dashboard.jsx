@@ -35,7 +35,7 @@ const Vendor_Dashboard = (props) => {
                 (del.data.data.length > 0) ? setDeliveredOrder(del.data.data.length) : setDeliveredOrder(0);
                 (can.data.data.length > 0) ? setCancelledOrder(can.data.data.length) : setCancelledOrder(0);
                 (pen.data.data.length > 0) ? setPendingOrder(pen.data.data.length) : setPendingOrder(0);
-                (sal.data[0].count > 0) ? setSalesAmount(sal.data[0].count) : setSalesAmount(0);
+                (sal.data.length > 0) ? setSalesAmount(sal.data[0].count) : setSalesAmount(0);
                 setLoader(false);
             }))
     }, [email])
