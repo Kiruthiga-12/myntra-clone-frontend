@@ -135,15 +135,15 @@ const Catalogue = () => {
                                         onClick={async (e) => {
                                             await setEditCat(false)
                                             await setEditCat(true)
-                                            await setEditValue(e.target.previousSibling.innerHTML)
+                                            setEditValue(e.target.previousSibling.innerText)
                                         }} />
                                     <DeleteIcon sx={{ flex: 2, cursor: 'pointer', color: "black" }}
                                         onClick={async (e) => {
                                             await setDeleteCat(false)
                                             await setDeleteCat(true)
-                                            let modeicon = await e.target.previousElementSibling
-                                            let deleteicon = await modeicon.previousElementSibling.innerHTML
-                                            await setDeleteValue(deleteicon)
+                                            let modeicon = e.target.previousElementSibling
+                                            let deleteicon = modeicon.previousElementSibling.innerText
+                                            setDeleteValue(deleteicon)
                                         }} />
                                 </ListItemButton>
                             )
@@ -171,15 +171,15 @@ const Catalogue = () => {
                                         onClick={async (e) => {
                                             await setEditSubCat(false)
                                             await setEditSubCat(true)
-                                            await setEditSubCatValue(e.target.previousSibling.innerHTML)
+                                            setEditSubCatValue(e.target.previousSibling.innerText)
                                         }} />
                                     <DeleteIcon sx={{ flex: 2, cursor: 'pointer', color: "black" }}
                                         onClick={async (e) => {
                                             await setDeleteSubCat(false)
                                             await setDeleteSubCat(true)
-                                            let modeicon = await e.target.previousElementSibling
-                                            let deleteicon = await modeicon.previousElementSibling.innerHTML
-                                            await setDeleteSubCatValue(deleteicon)
+                                            let modeicon = e.target.previousElementSibling
+                                            let deleteicon = modeicon.previousElementSibling.innerText
+                                            setDeleteSubCatValue(deleteicon)
                                         }} />
                                 </ListItemButton>
                             )
@@ -204,15 +204,15 @@ const Catalogue = () => {
                                         onClick={async (e) => {
                                             await setEditProductCat(false)
                                             await setEditProductCat(true)
-                                            await setEditProductValue(e.target.previousSibling.innerHTML)
+                                            setEditProductValue(e.target.previousSibling.innerText)
                                         }} />
                                     <DeleteIcon sx={{ flex: 2, cursor: 'pointer', color: "black" }}
                                         onClick={async (e) => {
                                             await setDeleteProductCat(false)
                                             await setDeleteProductCat(true)
-                                            let modeicon = await e.target.previousElementSibling
-                                            let deleteicon = await modeicon.previousElementSibling.innerHTML
-                                            await setDeleteProductValue(deleteicon)
+                                            let modeicon = e.target.previousElementSibling
+                                            let deleteicon = modeicon.previousElementSibling.innerText
+                                            setDeleteProductValue(deleteicon)
                                         }} />
                                 </ListItemButton>
                             )
@@ -226,12 +226,12 @@ const Catalogue = () => {
             {deletecat === true && <Category_crud delete={true} categ={deletecatvalue} />}
             {/* Sub Category */}
             {createsubcat === true && <Subcategory_crud create={true} />}
-            {editsubcat === true && <Subcategory_crud edit={true} categ={editsubcatvalue} />}
-            {deletesubcat === true && <Subcategory_crud delete={true} categ={deletesubcatvalue} />}
+            {editsubcat === true && <Subcategory_crud edit={true} categ={editsubcatvalue} cat={div1} />}
+            {deletesubcat === true && <Subcategory_crud delete={true} categ={deletesubcatvalue} cat={div1} />}
             {/* Product */}
             {createproductcat === true && <Product_crud create={true} />}
-            {editproductcat === true && <Product_crud edit={true} categ={editproductcatvalue} />}
-            {deleteproductcat === true && <Product_crud delete={true} categ={deleteproductcatvalue} />}
+            {editproductcat === true && <Product_crud edit={true} categ={editproductcatvalue} subcat={div2} cat={div1} />}
+            {deleteproductcat === true && <Product_crud delete={true} categ={deleteproductcatvalue} subcat={div2} cat={div1} />}
         </>
     )
 }

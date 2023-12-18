@@ -22,10 +22,10 @@ const Category_crud = (props) => {
             setEditValue(props.categ);
         else if (props.delete === true)
             setDeleteValue(props.categ);
-    }, [props.categ])
+    }, [props])
     return (
         <>
-            <ToastContainer  />
+            <ToastContainer />
             {/* Add New Category */}
             {
                 props.create === true && <>
@@ -103,18 +103,20 @@ const Category_crud = (props) => {
                                 }}
                                     disabled={disab2}
                                     onClick={async () => {
-                                        const cat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_category?category=${props.categ}`, {
+                                        const val2 = props.categ;
+                                        const val1 = (val2 != '' || val2 != undefined) ? val2.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const cat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_category?category=${val1}`, {
                                             catvalue: editeg
                                         })
-                                        const subcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_subcategory?category=${props.categ}`, {
+                                        const subcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_subcategory?category=${val1}`, {
                                             catvalue: editeg
                                         })
-                                        const prodcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory?category=${props.categ}`, {
+                                        const prodcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory?category=${val1}`, {
                                             catvalue: editeg
                                         })
                                         await axios.all([cat, subcat, prodcat])
                                             .then(axios.spread(function (catdet, subcatdet, prodcatdet) {
-                                                if (catdet.data.modifiedCount == 1 && subcatdet.data.modifiedCount == 1 && prodcatdet.data.modifiedCount == 1) {
+                                                if (catdet.data.modifiedCount == 1) {
                                                     toast.success('Category edited successfully!!', { autoClose: 3000 })
                                                     setEditFlag(false);
                                                 }
@@ -150,12 +152,14 @@ const Category_crud = (props) => {
                                 }}
                                     disabled={disab3}
                                     onClick={async () => {
-                                        const cat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_category?category=${props.categ}`)
-                                        const subcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_subcategory?category=${props.categ}`)
-                                        const prodcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory?category=${props.categ}`)
+                                        const val2 = props.categ;
+                                        const val1 = (val2 != '' || val2 != undefined) ? val2.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const cat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_category?category=${val1}`)
+                                        const subcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_subcategory?category=${val1}`)
+                                        const prodcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory?category=${val1}`)
                                         await axios.all([cat, subcat, prodcat])
                                             .then(axios.spread(function (catdet, subcatdet, prodcatdet) {
-                                                if (catdet.data.deletedCount == 1 && subcatdet.data.deletedCount == 1 && prodcatdet.data.deletedCount == 1) {
+                                                if (catdet.data.deletedCount == 1) {
                                                     setDeleteFlag(false);
                                                     toast.success('Category deleted successfully', { autoClose: 3000 })
                                                 }

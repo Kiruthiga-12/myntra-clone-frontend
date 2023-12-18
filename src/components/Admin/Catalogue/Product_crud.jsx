@@ -41,20 +41,14 @@ const Product_crud = (props) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_category`)
             .then((data) => {
-                if (data.data.length > 0)
-                    setCategory(data.data)
-                else
-                    setCategory([])
+                (data.data.length > 0) ? setCategory(data.data) : setCategory([])
             })
 
         if (categ.length > 0) {
             const catamp = (categ != '' || categ != undefined) ? categ.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
             axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_subcategory_cat?category=${catamp}`)
                 .then((data) => {
-                    if (data.data.length > 0)
-                        setSubCategory(data.data.slice())
-                    else
-                        setSubCategory([])
+                    (data.data.length > 0) ? setSubCategory(data.data.slice()) : setSubCategory([])
                 })
 
         }
@@ -62,10 +56,7 @@ const Product_crud = (props) => {
             const catamp = (catnewval != ' ' || catnewval != undefined) ? catnewval.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
             axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_subcategory_cat?category=${catamp}`)
                 .then((data) => {
-                    if (data.data.length > 0)
-                        setSubCategory(data.data.slice())
-                    else
-                        setSubCategory([]);
+                    (data.data.length > 0) ? setSubCategory(data.data.slice()) : setSubCategory([]);
                 })
 
         }
@@ -73,57 +64,33 @@ const Product_crud = (props) => {
             const catamp = (delcat != '' || delcat != undefined) ? delcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
             axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_subcategory_cat?category=${catamp}`)
                 .then((data) => {
-                    if (data.data.length > 0)
-                        setSubCategory(data.data.slice())
-                    else
-                        setSubCategory([]);
+                    (data.data.length > 0) ? setSubCategory(data.data.slice()) : setSubCategory([]);
                 })
 
         }
-    }, [category, subcategory, catnewval, delcat])
+    }, [categ, catnewval, delcat])
+
     useEffect(() => {
         if (props.edit === true) {
-            const cate = axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_category`)
-            const catamp = (props.categ != '' || props.categ != undefined) ? props.categ.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
-            const prodcate = axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_productcategory_product?product=${catamp}`)
-            axios.all([cate, prodcate])
-                .then(axios.spread(function (catedet, prodcatedet) {
-                    (catedet.data.length > 0) ? setCategory(catedet.data) : setCategory()
-                    if (prodcatedet.data.length > 0)
-                        if (prodcatedet.data[0].category != undefined) {
-                            //cat
-                            setCat(prodcatedet.data[0].category);
-                            setCatNewVal(prodcatedet.data[0].category);
-                            //subcat
-                            setSubcat(prodcatedet.data[0].subcategory);
-                            setSubCatNewVal(prodcatedet.data[0].subcategory);
-                            //product
-                            setProductCat(prodcatedet.data[0].productcategory);
-                            setProductCatNewVal(prodcatedet.data[0].productcategory);
-                        }
-                }))
-
+            //cat
+            setCat(props.cat);
+            setCatNewVal(props.cat);
+            //subcat
+            setSubcat(props.subcat);
+            setSubCatNewVal(props.subcat);
+            //product
+            setProductCat(props.categ);
+            setProductCatNewVal(props.categ);
         }
         else if (props.delete === true) {
-            const cate = axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_category`);
-            const catamp = (props.categ != ' ' || props.categ != undefined) ? props.categ.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : ' ';
-            const prodcate = axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_productcategory_product?product=${catamp}`)
-            axios.all([cate, prodcate])
-                .then(axios.spread(function (catedet, prodcatedet) {
-                    (catedet.data.length > 0) ? setCategory(catedet.data) : setCategory()
-                    if (prodcatedet.data.length > 0)
-                        if (prodcatedet.data[0].category != undefined) {
-                            //cat
-                            setDeleteCatVal(prodcatedet.data[0].category);
-                            //subcat
-                            setDeleteSubCatVal(prodcatedet.data[0].subcategory);
-                            //product
-                            setDeleteProductCatVal(prodcatedet.data[0].productcategory);
-                        }
-                }))
-
+            //cat
+            setDeleteCatVal(props.cat);
+            //subcat
+            setDeleteSubCatVal(props.subcat);
+            //product
+            setDeleteProductCatVal(props.categ)
         }
-    }, [props.categ])
+    }, [props])
     return (
         <>
             <ToastContainer />
@@ -177,6 +144,7 @@ const Product_crud = (props) => {
                                                     autoClose: 3000,
                                                     toastId: 'tid'
                                                 })
+
                                             }
                                             else {
                                                 setCreateFlag(true);
@@ -235,7 +203,10 @@ const Product_crud = (props) => {
                                 }}
                                     disabled={disab2}
                                     onClick={async () => {
-                                        axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory_product?category=${cat}&subcategory=${subcat}&product=${productcat}`, {
+                                        const catamp = (cat != '' || cat != undefined) ? cat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const subamp = (subcat != '' || subcat != undefined) ? subcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const productamp = (productcat != '' || productcat != undefined) ? productcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory_product?category=${catamp}&subcategory=${subamp}&product=${productamp}`, {
                                             catvalue: catnewval,
                                             subcatvalue: subcatnewval,
                                             productcatvalue: productcatnewval
@@ -247,6 +218,7 @@ const Product_crud = (props) => {
                                                         autoClose: 3000,
                                                         toastId: "tid"
                                                     })
+
                                                 }
                                                 else if (data.data.modifiedCount == 0) {
                                                     setEditFlag(true);
@@ -296,7 +268,11 @@ const Product_crud = (props) => {
                                 }}
                                     disabled={disab3}
                                     onClick={async () => {
-                                        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory_productcat?category=${delcat}&subcategory=${delsubcat}&product=${delproductcat}`)
+                                        const catamp = (delcat != '' || delcat != undefined) ? delcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const subamp = (delsubcat != '' || delsubcat != undefined) ? delsubcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const productamp = (delproductcat != '' || delproductcat != undefined) ? delproductcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+
+                                        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory_productcat?category=${catamp}&subcategory=${subamp}&product=${productamp}`)
                                             .then((data) => {
                                                 if (data.data.deletedCount == 1) {
                                                     setDeleteFlag(false);
@@ -304,6 +280,7 @@ const Product_crud = (props) => {
                                                         autoClose: 3000,
                                                         toastId: "tid"
                                                     })
+
                                                 }
                                                 if (data.data.deletedCount == 0) {
                                                     setDeleteFlag(true);

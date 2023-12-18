@@ -26,47 +26,31 @@ const Subcategory_crud = (props) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_category`)
             .then((data) => {
-                if (data.data.length > 0)
-                    setCategory(data.data)
-                else
-                    setCategory([])
+                (data.data.length > 0) ? setCategory(data.data) : setCategory([])
             })
 
     }, [])
     useEffect(() => {
         if (props.edit === true) {
-            const catamp = (props.categ != ' ' || props.categ != undefined) ? props.categ.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_subcategory_subcat?subcategory=${catamp}`)
-                .then(async (data) => {
-                    if (data.data.length > 0)
-                        if (data.data[0].category != undefined) {
-                            //cat
-                            await setSubValue(data.data[0].category);
-                            await setCatVal(data.data[0].category);
-                            //subcat
-                            await setEditValue(data.data[0].subcategory);
-                            await setSubCatValue(data.data[0].subcategory);
-                        }
-                })
+            //cat
+            setSubValue(props.cat);
+            setCatVal(props.cat);
+            //subcat
+            setEditValue(props.categ);
+            setSubCatValue(props.categ);
 
         }
         else if (props.delete === true) {
-            const catamp = (props.categ != '' || props.categ != undefined) ? props.categ.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : ' ';
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_subcategory_subcat?subcategory=${catamp}`)
-                .then(async (data) => {
-                    if (data.data.length > 0)
-                        if (data.data[0].category != undefined) { //cat
-                            await setDeleteCat(data.data[0].category);
-                            //subcat
-                            await setDeleteValue(data.data[0].subcategory);
-                        }
-                })
+            //cat
+            setDeleteCat(props.cat);
+            //subcat
+            setDeleteValue(props.categ)
 
         }
-    }, [props.categ])
+    }, [props])
     return (
         <>
-            <ToastContainer  />
+            <ToastContainer />
             {/* Add New Sub Category */}
             {props.create === true && <>
                 < Dialog open={createflag} hideBackdrop sx={{ margin: 'auto', width: '800px', height: '650px' }}>
@@ -159,17 +143,19 @@ const Subcategory_crud = (props) => {
                                 }}
                                     disabled={disab2}
                                     onClick={async () => {
-                                        const subcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_subcategory_subcat?category=${subeg}&subcategory=${subcat}`, {
+                                        const val1 = (subeg != '' || subeg != undefined) ? subeg.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const val2 = (subcat != '' || subcat != undefined) ? subcat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                        const subamp = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_subcategory_subcat?category=${val1}&subcategory=${val2}`, {
                                             catvalue: catval,
                                             subcatvalue: editeg
                                         })
-                                        const prodcat = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory_subcat?category=${subeg}&subcategory=${subcat}`, {
+                                        const prodamp = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/edit_productcategory_subcat?category=${val1}&subcategory=${val2}`, {
                                             catvalue: catval,
                                             subcatvalue: editeg
                                         })
-                                        await axios.all([subcat, prodcat])
+                                        await axios.all([subamp, prodamp])
                                             .then(axios.spread(function (subcatdet, prodcatdet) {
-                                                if (subcatdet.data.modifiedCount == 1 && prodcatdet.data.modifiedCount == 1) {
+                                                if (subcatdet.data.modifiedCount == 1) {
                                                     setEditFlag(false);
                                                     toast.success('Subcategory edited successfully', { autoClose: 3000 })
                                                 }
@@ -213,11 +199,13 @@ const Subcategory_crud = (props) => {
                             }}
                                 disabled={disab3}
                                 onClick={async () => {
-                                    const subcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_subcategory_subcat?subcategory=${props.categ}`)
-                                    const prodcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory_subcat?subcategory=${props.categ}`)
+                                    const val2 = props.categ;
+                                    const val1 = (val2 != '' || val2 != undefined) ? val2.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
+                                    const subcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_subcategory_subcat?subcategory=${val1}`)
+                                    const prodcat = axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete_productcategory_subcat?subcategory=${val1}`)
                                     await axios.all([subcat, prodcat])
                                         .then(axios.spread(function (subcatdet, prodcatdet) {
-                                            if (subcatdet.data.deletedCount == 1 && prodcatdet.data.deletedCount == 1) {
+                                            if (subcatdet.data.deletedCount == 1) {
                                                 setDeleteFlag(false);
                                                 toast.success('Subcategory deleted successfully', { autoClose: 3000 })
                                             }
