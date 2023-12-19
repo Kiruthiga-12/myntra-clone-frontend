@@ -59,6 +59,31 @@ const CartGift = (props) => {
         }
     }, [receipient, msg, sender])
 
+    useEffect(() => {
+        setLoader(true);
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_gift_wrap?user_id=${document.getElementById('userlogin_userid').innerText}`)
+            .then((data) => {
+                if (data.data.length > 0)
+                    if (data.data[0].user_id != 0) {
+                        setMsg(data.data[0].message);
+                        setReceipient(data.data[0].receipient);
+                        setSender(data.data[0].sender);
+                        setApplyGift(true);
+                        document.getElementById('cart_gift_wrap').style.visibility = 'visible';
+                        document.getElementById('cart_gift_rup').style.visibility = 'visible';
+                        document.getElementById('cart_gift_price').style.visibility = 'visible';
+                    }
+                    else {
+                        setApplyGift(false);
+                        if (document.getElementById('cart_gift_wrap') != undefined && document.getElementById('cart_gift_rup') != undefined && document.getElementById('cart_gift_price') != undefined) {
+                            document.getElementById('cart_gift_wrap').style.visibility = 'hidden';
+                            document.getElementById('cart_gift_rup').style.visibility = 'hidden';
+                            document.getElementById('cart_gift_price').style.visibility = 'hidden';
+                        }
+                    }
+                setLoader(false);
+            })
+    }, [props])
     return (<>
         {loader == true ? <Loader /> : <>
             <ToastContainer />
@@ -250,10 +275,14 @@ const CartGift = (props) => {
         </>}
     </>)
 }
-
+const mapStateToProps = (cstate) => {
+    return {
+        gift_iterate: cstate.gift_iterate
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         getGiftInc: (data) => dispatch(getGiftInc(data))
     }
 }
-export default connect(null, mapDispatchToProps)(CartGift);
+export default connect(mapStateToProps, mapDispatchToProps)(CartGift);

@@ -13,7 +13,7 @@ import CartGift from './CartGift';
 import CartDeliveryAdr from './CartDeliveryAdr';
 import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
 import WishlistToast from '../Wishlist_Toast';
-import { getBagCount } from '../../../Redux_Store/Action_Creators';
+import { getBagCount, getGiftInc } from '../../../Redux_Store/Action_Creators';
 import Loader from '../../../Loader/Loader';
 
 const CartBag = (props) => {
@@ -274,6 +274,7 @@ const CartBag = (props) => {
                                     position: toast.POSITION.TOP_RIGHT,
                                     autoClose: 3000
                                 })
+                                props.getGiftInc(false);
                             }
                         })
                 }
@@ -1114,7 +1115,8 @@ const mapStateToProps = (cstate) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setCartState: (data) => dispatch(setCartState(data)),
-        getBagCount: (data) => dispatch(getBagCount(data))
+        getBagCount: (data) => dispatch(getBagCount(data)),
+        getGiftInc: (data) => dispatch(getGiftInc(data))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CartBag);

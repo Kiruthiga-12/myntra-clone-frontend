@@ -32,7 +32,7 @@ const ViewSimilar = (props) => {
                             onClick={() => setOpenFlag(false)}>&times;</Typography>
                     </Box>
                     {arr.length == 0 &&
-                        <Typography sx={{ textAlign: "center", color: "black", fontWeight: "bold", padding: "30px" }}>No Similar products found!!</Typography>}
+                        <Typography sx={{ textAlign: "center", color: "rgb(243, 66, 140)", fontWeight: "bold", padding: "30px" }}>No Similar products found!!</Typography>}
                     {arr.length > 0 && arr.map((li, index) => {
                         return (<>
                             <Box sx={{
