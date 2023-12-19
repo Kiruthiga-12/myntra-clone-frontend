@@ -70,7 +70,7 @@ const SuccessPage = (props) => {
                                                     <Box sx={{ display: 'flex', marginTop: "3px" }}>
                                                         <Typography >&#8377; {li.price}</Typography>
                                                         <Typography sx={{ marginLeft: "10px" }}><del>&#8377; {li.strike_price}</del></Typography>
-                                                        <Typography sx={{ marginLeft: "10px" }}>Discount: {li.discount_amount}% off </Typography>
+                                                        <Typography sx={{ marginLeft: "10px" }}>Discount: {li.discount}% off </Typography>
                                                     </Box>
                                                     <Typography sx={{ marginTop: "3px", fontWeight: "bold" }}>Ordered</Typography>
                                                 </Box>
@@ -88,7 +88,7 @@ const SuccessPage = (props) => {
                                 </Box>
                                 <Typography sx={{ marginTop: "25px", fontWeight: "bold", fontSize: "18px" }}>Price Details</Typography>
                                 <Typography sx={{ marginTop: "5px" }}>Total MRP : {orderdetails[0].total_mrp} </Typography>
-                                <Typography sx={{ marginTop: "5px" }}>Discount : {orderdetails[0].discount}-</Typography>
+                                <Typography sx={{ marginTop: "5px" }}>Discount : {orderdetails[0].discount_amount}-</Typography>
                                 <Typography sx={{ marginTop: "5px" }}>Convenience Fee: {orderdetails[0].conv_fee}</Typography>
                                 <Typography sx={{ marginTop: "5px" }}>Gift Amount : {orderdetails[0].gift_amt}</Typography>
                                 <Typography sx={{ marginTop: "5px" }}>First order : {orderdetails[0].first_order}-</Typography>
