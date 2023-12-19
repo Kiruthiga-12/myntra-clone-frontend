@@ -78,7 +78,7 @@ const CartDeliveryAdr = () => {
                 setCount(data.data.data)
             })
         //to get all address
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}0/get_addr?user_id=${document.getElementById('userlogin_userid').innerText}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_addr?user_id=${document.getElementById('userlogin_userid').innerText}`)
             .then((data) => {
                 if (data.data.length > 0)
                     getAdr(data.data.slice())
