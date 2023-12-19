@@ -51,7 +51,7 @@ const CartDeliveryAdr = () => {
     const [defaultflag, setDefaultFlag] = useState(false);
     useEffect(() => {
         //to get single adr
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}0/get_new_adr?user_id=${document.getElementById('userlogin_userid').innerText}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_new_adr?user_id=${document.getElementById('userlogin_userid').innerText}`)
             .then((data) => {
                 if (data.data.length == 0) {
                     setInitial(true)
