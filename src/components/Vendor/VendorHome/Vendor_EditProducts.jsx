@@ -478,7 +478,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image1}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image1}`, 'vendoredit_product1.png');
                                     if (file != undefined) {
                                         setImg1(file);
                                     }
@@ -499,7 +499,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image2}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image2}`, 'vendoredit_product2.png');
                                     if (file != undefined) {
                                         setImg2(file);
                                     }
@@ -520,7 +520,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image3}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image3}`, 'vendoredit_product3.png');
                                     if (file != undefined) {
                                         setImg3(file);
                                     }
@@ -541,7 +541,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image4}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image4}`, 'vendoredit_product4.png');
                                     if (file != undefined) {
                                         setImg4(file);
                                     }
@@ -562,7 +562,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image5}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image5}`, 'vendoredit_product5.png');
                                     if (file != undefined) {
                                         setImg5(file);
                                     }
@@ -583,7 +583,7 @@ const Vendor_EditProduct = (props) => {
                                         }
                                         return new File([u8arr], filename, { type: mime })
                                     }
-                                    const file = dataURLtoFile(`data:image/png;base64,${image6}`, 'vendoredit_product.png');
+                                    const file = dataURLtoFile(`data:image/png;base64,${image6}`, 'vendoredit_product6.png');
                                     if (file != undefined) {
                                         setImg6(file);
                                     }
