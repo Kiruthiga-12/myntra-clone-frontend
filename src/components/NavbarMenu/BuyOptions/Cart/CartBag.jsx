@@ -146,24 +146,40 @@ const CartBag = (props) => {
                 }
                 f0();
             })
-            document.getElementById('cart_coupon').style.visibility = 'visible';
-            document.getElementById('cart_convenience').style.visibility = 'visible';
-            document.getElementById('cart_discount').style.visibility = 'visible';
-            document.getElementById('cart_discount_rup').style.visibility = 'visible';
-            document.getElementById('cart_discount_minus').style.visibility = 'visible';
-            document.getElementById('cart_discount_price').style.visibility = 'visible';
+            function f8() {
+                if (document.getElementById('cart_coupon') != undefined && document.getElementById('cart_convenience') != undefined &&
+                    document.getElementById('cart_discount') != undefined && document.getElementById('cart_discount_rup') != undefined
+                    && document.getElementById('cart_discount_minus') != undefined &&
+                    document.getElementById('cart_discount_price') != undefined) {
+                    document.getElementById('cart_coupon').style.visibility = 'visible';
+                    document.getElementById('cart_convenience').style.visibility = 'visible';
+                    document.getElementById('cart_discount').style.visibility = 'visible';
+                    document.getElementById('cart_discount_rup').style.visibility = 'visible';
+                    document.getElementById('cart_discount_minus').style.visibility = 'visible';
+                    document.getElementById('cart_discount_price').style.visibility = 'visible';
+                }
+            }
+            f8();
             //condition.
             if (gift_flag === true) {
-                document.getElementById('cart_gift_wrap').style.visibility = 'visible';
-                document.getElementById('cart_gift_rup').style.visibility = 'visible';
-                document.getElementById('cart_gift_price').style.visibility = 'visible';
+                if (document.getElementById('cart_gift_wrap') != undefined &&
+                    document.getElementById('cart_gift_rup') != undefined && document.getElementById('cart_gift_price') != undefined) {
+                    document.getElementById('cart_gift_wrap').style.visibility = 'visible';
+                    document.getElementById('cart_gift_rup').style.visibility = 'visible';
+                    document.getElementById('cart_gift_price').style.visibility = 'visible';
+                }
             }
             function f1() {
                 if (offer_amt > 0) {
-                    document.getElementById('cart_first_order').style.visibility = 'visible';
-                    document.getElementById('cart_first_order_rup').style.visibility = 'visible';
-                    document.getElementById('cart_first_order_price').style.visibility = 'visible';
-                    document.getElementById('cart_first_order_minus').style.visibility = 'visible';
+                    if (document.getElementById('cart_first_order') != undefined &&
+                        document.getElementById('cart_first_order_rup') != undefined &&
+                        document.getElementById('cart_first_order_price') != undefined &&
+                        document.getElementById('cart_first_order_minus') != undefined) {
+                        document.getElementById('cart_first_order').style.visibility = 'visible';
+                        document.getElementById('cart_first_order_rup').style.visibility = 'visible';
+                        document.getElementById('cart_first_order_price').style.visibility = 'visible';
+                        document.getElementById('cart_first_order_minus').style.visibility = 'visible';
+                    }
                 }
             }
             f1()
@@ -180,23 +196,37 @@ const CartBag = (props) => {
                 }
                 f0();
             })
-            document.getElementById('cart_coupon').style.visibility = 'hidden';
-            document.getElementById('cart_convenience').style.visibility = 'hidden';
-            document.getElementById('cart_discount').style.visibility = 'hidden';
-            document.getElementById('cart_discount_rup').style.visibility = 'hidden';
-            document.getElementById('cart_discount_minus').style.visibility = 'hidden';
-            document.getElementById('cart_discount_price').style.visibility = 'hidden';
+            function f9() {
+                if (document.getElementById('cart_coupon') != undefined && document.getElementById('cart_convenience') != undefined &&
+                    document.getElementById('cart_discount') != undefined && document.getElementById('cart_discount_rup') != undefined
+                    && document.getElementById('cart_discount_minus') != undefined &&
+                    document.getElementById('cart_discount_price') != undefined) {
+                    document.getElementById('cart_coupon').style.visibility = 'hidden';
+                    document.getElementById('cart_convenience').style.visibility = 'hidden';
+                    document.getElementById('cart_discount').style.visibility = 'hidden';
+                    document.getElementById('cart_discount_rup').style.visibility = 'hidden';
+                    document.getElementById('cart_discount_minus').style.visibility = 'hidden';
+                    document.getElementById('cart_discount_price').style.visibility = 'hidden';
+                }
+            }
+
+            f9();
             if (gift_flag === true) {
-                document.getElementById('cart_gift_wrap').style.visibility = 'hidden';
-                document.getElementById('cart_gift_rup').style.visibility = 'hidden';
-                document.getElementById('cart_gift_price').style.visibility = 'hidden';
+                if (document.getElementById('cart_gift_wrap') != undefined && document.getElementById('cart_gift_rup') != undefined
+                    && document.getElementById('cart_gift_price') != undefined) {
+                    document.getElementById('cart_gift_wrap').style.visibility = 'hidden';
+                    document.getElementById('cart_gift_rup').style.visibility = 'hidden';
+                    document.getElementById('cart_gift_price').style.visibility = 'hidden';
+                }
             }
             function f1() {
                 if (offer_amt > 0) {
-                    document.getElementById('cart_first_order').style.visibility = 'hidden';
-                    document.getElementById('cart_first_order_rup').style.visibility = 'hidden';
-                    document.getElementById('cart_first_order_price').style.visibility = 'hidden';
-                    document.getElementById('cart_first_order_minus').style.visibility = 'hidden';
+                    if (document.getElementById('cart_first_order') != undefined && document.getElementById('cart_first_order_rup') != undefined && document.getElementById('cart_first_order_price') != undefined && document.getElementById('cart_first_order_minus') != undefined) {
+                        document.getElementById('cart_first_order').style.visibility = 'hidden';
+                        document.getElementById('cart_first_order_rup').style.visibility = 'hidden';
+                        document.getElementById('cart_first_order_price').style.visibility = 'hidden';
+                        document.getElementById('cart_first_order_minus').style.visibility = 'hidden';
+                    }
                 }
             }
             f1()
@@ -218,16 +248,20 @@ const CartBag = (props) => {
                     document.getElementById('cart_discount_minus').style.visibility = 'hidden';
                     document.getElementById('cart_discount_price').style.visibility = 'hidden';
                     if (gift_flag === true) {
-                        document.getElementById('cart_gift_wrap').style.visibility = 'hidden';
-                        document.getElementById('cart_gift_rup').style.visibility = 'hidden';
-                        document.getElementById('cart_gift_price').style.visibility = 'hidden';
+                        if (document.getElementById('cart_gift_wrap') != undefined && document.getElementById('cart_gift_rup') != undefined && document.getElementById('cart_gift_price') != undefined) {
+                            document.getElementById('cart_gift_wrap').style.visibility = 'hidden';
+                            document.getElementById('cart_gift_rup').style.visibility = 'hidden';
+                            document.getElementById('cart_gift_price').style.visibility = 'hidden';
+                        }
                     }
                     function f1() {
                         if (offer_amt > 0) {
-                            document.getElementById('cart_first_order').style.visibility = 'hidden';
-                            document.getElementById('cart_first_order_rup').style.visibility = 'hidden';
-                            document.getElementById('cart_first_order_price').style.visibility = 'hidden';
-                            document.getElementById('cart_first_order_minus').style.visibility = 'hidden';
+                            if (document.getElementById('cart_first_order') != undefined && document.getElementById('cart_first_order_rup') != undefined && document.getElementById('cart_first_order_price') != undefined && document.getElementById('cart_first_order_minus') != undefined) {
+                                document.getElementById('cart_first_order').style.visibility = 'hidden';
+                                document.getElementById('cart_first_order_rup').style.visibility = 'hidden';
+                                document.getElementById('cart_first_order_price').style.visibility = 'hidden';
+                                document.getElementById('cart_first_order_minus').style.visibility = 'hidden';
+                            }
                         }
                     }
                     f1()
@@ -257,17 +291,22 @@ const CartBag = (props) => {
                         document.getElementById('cart_discount_minus').style.visibility = 'visible';
                         document.getElementById('cart_discount_price').style.visibility = 'visible';
                         if (gift_flag === true) {
-                            document.getElementById('cart_gift_wrap').style.visibility = 'visible';
-                            document.getElementById('cart_gift_rup').style.visibility = 'visible';
-                            document.getElementById('cart_gift_price').style.visibility = 'visible';
+                            if (document.getElementById('cart_gift_wrap') != undefined && document.getElementById('cart_gift_rup') != undefined && document.getElementById('cart_gift_price') != undefined) {
+                                document.getElementById('cart_gift_wrap').style.visibility = 'visible';
+                                document.getElementById('cart_gift_rup').style.visibility = 'visible';
+                                document.getElementById('cart_gift_price').style.visibility = 'visible';
+                            }
                         }
                     }
                     function f1() {
                         if (offer_amt > 0) {
-                            document.getElementById('cart_first_order').style.visibility = 'visible';
-                            document.getElementById('cart_first_order_rup').style.visibility = 'visible';
-                            document.getElementById('cart_first_order_price').style.visibility = 'visible';
-                            document.getElementById('cart_first_order_minus').style.visibility = 'visible';
+                            if (document.getElementById('cart_first_order') != undefined && document.getElementById('cart_first_order_rup') != undefined &&
+                                document.getElementById('cart_first_order_price') != undefined && document.getElementById('cart_first_order_minus') != undefined) {
+                                document.getElementById('cart_first_order').style.visibility = 'visible';
+                                document.getElementById('cart_first_order_rup').style.visibility = 'visible';
+                                document.getElementById('cart_first_order_price').style.visibility = 'visible';
+                                document.getElementById('cart_first_order_minus').style.visibility = 'visible';
+                            }
                         }
                     }
                     f1()
@@ -317,13 +356,21 @@ const CartBag = (props) => {
             let final = 0;
             function f01() {
                 if (gift_flag == false) {
-                    final = total_mrp + Number(document.getElementById('cart_conv_fee').innerText);
+                    function f5() {
+                        if (document.getElementById('cart_conv_fee') != undefined)
+                            final = total_mrp + Number(document.getElementById('cart_conv_fee').innerText);
+                    }
+                    f5();
                     if (discount != 0) {
                         final = final - discount;
                     }
                 }
                 else if (gift_flag == true) {
-                    final = total_mrp + Number(document.getElementById('cart_conv_fee').innerText) + 25;
+                    function f12() {
+                        if (document.getElementById('cart_conv_fee') != undefined)
+                            final = total_mrp + Number(document.getElementById('cart_conv_fee').innerText) + 25;
+                    }
+                    f12();
                     if (discount != 0) {
                         final = final - discount;
                     }

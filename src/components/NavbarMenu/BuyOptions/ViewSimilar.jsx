@@ -17,10 +17,7 @@ const ViewSimilar = (props) => {
 
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_similar_product?pid=${props.pid}&category=${cat}&subcategory=${subcat}&productcategory=${prodcat}`)
             .then((data) => {
-                if (data.data.length > 0)
-                    getArr(data.data.slice())
-                else
-                    getArr([])
+                (data.data.length > 0) ? getArr(data.data.slice()) : getArr([])
                 setLoader(false);
             })
     }, [])
@@ -34,6 +31,8 @@ const ViewSimilar = (props) => {
                         <Typography sx={{ flex: 2, cursor: "pointer", fontSize: "35px", fontFamily: "verdana" }}
                             onClick={() => setOpenFlag(false)}>&times;</Typography>
                     </Box>
+                    {arr.length == 0 &&
+                        <Typography sx={{ textAlign: "center", color: "black", fontWeight: "bold", padding: "30px" }}>No Similar products found!!</Typography>}
                     {arr.length > 0 && arr.map((li, index) => {
                         return (<>
                             <Box sx={{
