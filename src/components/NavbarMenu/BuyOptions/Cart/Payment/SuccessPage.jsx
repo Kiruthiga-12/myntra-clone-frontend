@@ -70,7 +70,7 @@ const SuccessPage = (props) => {
                                                     <Box sx={{ display: 'flex', marginTop: "3px" }}>
                                                         <Typography >&#8377; {li.price}</Typography>
                                                         <Typography sx={{ marginLeft: "10px" }}><del>&#8377; {li.strike_price}</del></Typography>
-                                                        <Typography sx={{ marginLeft: "10px" }}>Discount: {li.discount}% off </Typography>
+                                                        <Typography sx={{ marginLeft: "10px" }}>Discount: {li.discount_amount}% off </Typography>
                                                     </Box>
                                                     <Typography sx={{ marginTop: "3px", fontWeight: "bold" }}>Ordered</Typography>
                                                 </Box>
