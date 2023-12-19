@@ -24,7 +24,7 @@ const Kids = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setNavBar: (data) => dispatch(setNavBar(data)),
-        setNavBar: (data) => dispatch(setFooter(data))
+        setFooter: (data) => dispatch(setFooter(data))
     }
 }
 
