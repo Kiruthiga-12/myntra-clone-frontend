@@ -23,7 +23,7 @@ const PageBtn = (props) => {
         }
     }, [cnt])
     useEffect(() => {
-        setCnt(Math.ceil(props.total / 1));
+        setCnt(Math.ceil(props.total / 2));
     }, [])
     useEffect(() => {
         if (arr.length > 0 && props.page_no != 0) {
