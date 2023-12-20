@@ -140,7 +140,6 @@ const UserList = () => {
                                 <Box sx={{ flex: 6 }}>
                                     <Typography sx={{ marginLeft: '20px', paddingTop: '10px' }}>ID: <span>{li.user_id}</span></Typography>
                                     <Typography sx={{ marginLeft: '20px', marginTop: '10px' }}>User Name : <span>{li.user_name}</span></Typography>
-                                    <Typography sx={{ marginLeft: '20px', marginTop: '10px' }}>Address : <span>Subha Illam,1/178-7 Main Rad,Alavanthipuram,Kumbakonam</span></Typography>
                                     <Typography sx={{ marginLeft: '20px', marginTop: '10px' }}>Phone : <span>{li.user_mobile}</span></Typography>
                                     <Typography sx={{ marginLeft: '20px', marginTop: '10px' }}>Email : <span>{li.user_mailid}</span></Typography>
                                     <br></br>
