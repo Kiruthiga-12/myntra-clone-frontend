@@ -87,18 +87,34 @@ const Orders = (props) => {
                             <SearchIcon sx={{ color: 'black', marginLeft: "10px", flex: 1, cursor: "pointer" }}
                                 onClick={() => {
                                     setLoader(true);
-                                    if (searchval != undefined && searchval != '')
-                                        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}&status=${status}&search=${searchval}`)
-                                            .then((data) => {
-                                                (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
-                                                setLoader(false)
-                                            })
-                                    else if (searchval == undefined || searchval == '')
-                                        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}&status=${status}`)
-                                            .then((data) => {
-                                                (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
-                                                setLoader(false)
-                                            })
+                                    if (searchval != undefined && searchval != '') {
+                                        if (status != 'all')
+                                            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}&status=${status}&search=${searchval}`)
+                                                .then((data) => {
+                                                    (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
+                                                    setLoader(false)
+                                                })
+                                        else if (status == 'all')
+                                            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}&search=${searchval}`)
+                                                .then((data) => {
+                                                    (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
+                                                    setLoader(false)
+                                                })
+                                    }
+                                    else if (searchval == undefined || searchval == '') {
+                                        if (status != 'all')
+                                            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}&status=${status}`)
+                                                .then((data) => {
+                                                    (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
+                                                    setLoader(false)
+                                                })
+                                        else if (status == 'all')
+                                            axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_order?user_id=${props.userid}`)
+                                                .then((data) => {
+                                                    (data.data.length > 0) ? setOrderDetails(data.data.slice()) : setOrderDetails([])
+                                                    setLoader(false)
+                                                })
+                                    }
                                 }} />
                             <TextField variant='outlined' type='text' placeholder='Search in orders ....' sx={{
                                 flex: 11,
