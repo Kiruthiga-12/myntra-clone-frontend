@@ -127,7 +127,7 @@ const RegisterStep3 = (props) => {
             await axios.all([vendorsignup, perc, vendorstatus, deleteotp])
                 .then(axios.spread(function (signupdet, perce, status, otpdel) {
                     if (signupdet.data.vendor_id != undefined && perce.data.vendor_id != undefined &&
-                        status.data.vendor_id != undefined && otpdel.data.deletedCount == 1) {
+                        status.data.vendor_id != undefined) {
                         setCredentials(true);
                         props.getVendorLogin(props.vendor_email)
                     }
