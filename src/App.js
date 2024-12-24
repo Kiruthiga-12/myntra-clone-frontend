@@ -70,9 +70,9 @@ function App(props) {
         e.preventDefault()
     }
     //right click event
-    document.oncontextmenu = (e) => {
-      e.preventDefault();
-    }
+    // document.oncontextmenu = (e) => {
+    //   e.preventDefault();
+    // }
     //reload button in browser
     window.onbeforeunload = function () {
       localStorage.removeItem('admin_key');
