@@ -258,16 +258,16 @@ const CreditCard = (props) => {
                     }
                 })
                     .then((result) => {
-                        console.log(result);
-                        console.log(result.paymentIntent);
-                        
-                        // if (result.paymentIntent.status == 'succeeded') {
-                        //     setTransactionId(result.paymentIntent.id)
-                        //     setStatus(result.paymentIntent.status);
-                        // }
-                        // else if (result.paymentIntent.status != 'succeeded')
-                        //     navigate('/error')
-
+                    if(result.paymentIntent != undefined){
+                               if (result.paymentIntent.status == 'succeeded') {
+                                    setTransactionId(result.paymentIntent.id)
+                                    setStatus(result.paymentIntent.status);
+                             }
+                        else if (result.paymentIntent.status != 'succeeded')
+                                     navigate('/error')
+                        }
+                     else
+                         navigate('/error')
                     })
             }} >PAY NOW</Button >
         </>}
