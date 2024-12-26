@@ -21,6 +21,7 @@ const SelectCat = (props) => {
                 const catamp = (props.cat != '' || props.cat != undefined) ? props.cat.replace('&', '%26').replace(',', '%2C').replace('-', '%2D') : '';
                 axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_category_cat?category=${catamp}`)
                     .then((data) => setCategory(data.data.slice()))
+                setCat(props.cat)
             }
 
             else if (props.cat.length == 0)
