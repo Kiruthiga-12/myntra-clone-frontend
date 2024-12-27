@@ -195,8 +195,8 @@ const Product_Approval = (props) => {
                             onChange={(e) => setStatus(e.target.value)}>
                             <MenuItem value='approved'>approved</MenuItem>
                             <MenuItem value='rejected'>rejected</MenuItem>
-                            <MenuItem value='submitted'>submitted</MenuItem>
-                            <MenuItem value='resubmitted'>resubmitted</MenuItem>
+                            <MenuItem value='submitted' InputProps={{readOnly:true}}>submitted</MenuItem>
+                            <MenuItem value='resubmitted' InputProps={{readOnly:true}}>resubmitted</MenuItem>
                         </Select>
                         <br></br>
                         <textarea style={{ padding: '5px 10px', marginTop: '20px', width: '500px', height: "100px", resize: 'vertical', maxHeight: "150px", outline: "none" }}
