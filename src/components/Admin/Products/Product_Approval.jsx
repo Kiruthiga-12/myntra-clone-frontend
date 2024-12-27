@@ -9,9 +9,10 @@ const Product_Approval = (props) => {
 
     //flags
     const [editflag, setEditFlag] = useState(false)
-    const [disab1, setDisable1] = useState(true)
+    const [disab1, setDisable1] = useState(false)
     const [disab2, setDisable2] = useState(false)
     const [disab3, setDisable3] = useState(false)
+    const [disabText, setDisableText] = useState(false);
     //storing value
     const [product_id, setProductId] = useState('');
     const [comp_name, setCompName] = useState('');
@@ -52,6 +53,7 @@ const Product_Approval = (props) => {
     const [vendor_id, setVendorId] = useState(0);
     const product_apr = 'Products can be approved/rejected/edited. If Product already approved, you can deleete product';
     const [loader, setLoader] = useState(true);
+    const [aprflag, setAprFlag] = useState(false)
     useEffect(() => {
         async function pwd1() {
             await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_product_product_id?product_id=${props.product}`)
@@ -112,17 +114,30 @@ const Product_Approval = (props) => {
                 })
     }, [email])
     useEffect(() => {
-        if (status.length > 0 && status !== 'submitted' && status !== 'resubmitted' && reason.length > 0 && reason != ' ') {
-            setDisable1(false);
-            setDisable2(true);
-            setDisable3(true);
-        }
-        else if (status.length == 0 && status === 'submitted' && status === 'resubmitted' && reason.length == 0 && reason == ' ') {
+        if (status == 'approved') {
             setDisable1(true);
             setDisable2(false);
-            setDisable3(true);
+            setDisable3(false);
+            setDisableText(true);
         }
-    }, [status, reason])
+        else if (status == 'rejected') {
+            setDisable1(true);
+            setDisable2(true);
+            setDisable3(true);
+            setDisableText(true);
+        }
+    }, [status])
+    useEffect(() => {
+        if (aprflag == true) {
+            setDisable2(true);
+            setDisableText(false);
+        }
+    }, [aprflag])
+    useEffect(() => {
+        if (reason.length > 0) {
+            setDisable1(false)
+        }
+    }, [reason])
     useEffect(() => {
         setProductDate(new Date())
     }, [comp_name, brand_name, category, sub_category, product, strike_price, discount, price, color, description, size, qty, product_keyword])
@@ -191,13 +206,27 @@ const Product_Approval = (props) => {
                         <Typography sx={{ padding: '1px 20px', fontSize: '20px', fontFamily: 'cursive', color: 'white', backgroundColor: 'purple', width: '150px' }}>Product Status
                         </Typography>
                         <Typography sx={{ marginTop: '30px', color: 'blue', fontFamily: "cursive", fontSize: '16px' }} >Status : </Typography>
-                        <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
-                            onChange={(e) => setStatus(e.target.value)}>
-                            <MenuItem value='approved'>approved</MenuItem>
-                            <MenuItem value='rejected'>rejected</MenuItem>
-                        </Select>
+                        {status == 'approved' &&
+                            <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                                onChange={(e) => setStatus(e.target.value)}>
+                                <MenuItem value='approved'>approved</MenuItem>
+                            </Select>}
+                        {status == 'rejected' &&
+                            <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                                onChange={(e) => setStatus(e.target.value)}>
+                                <MenuItem value='rejected'>rejected</MenuItem>
+                            </Select>}
+                        {status == 'submitted' || status == 'resubmitted' &&
+                            <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                                onChange={(e) => {
+                                    setStatus(e.target.value)
+                                    setAprFlag(true)
+                                }}>
+                                <MenuItem value='approved'>approved</MenuItem>
+                                <MenuItem value='rejected'>rejected</MenuItem>
+                            </Select>}
                         <br></br>
-                        <textarea style={{ padding: '5px 10px', marginTop: '20px', width: '500px', height: "100px", resize: 'vertical', maxHeight: "150px", outline: "none" }}
+                        <textarea disabled={disabText} style={{ padding: '5px 10px', marginTop: '20px', width: '500px', height: "100px", resize: 'vertical', maxHeight: "150px", outline: "none" }}
                             onChange={(e) => setReason(e.target.value)} placeholder='Please Enter your comments...'
                             id='product_comments' value={reason}></textarea>
                         <br></br>
