@@ -65,7 +65,7 @@ const Product_Data = (props) => {
                                 <Typography sx={{ flex: 2, wordBreak: 'break-word', color: 'black' }} >{li.brand_name} </Typography>
                                 <Typography sx={{ flex: 1, wordBreak: 'break-word', color: 'black' }}>&#8377; {li.price}</Typography>
                                 <Typography sx={{ flex: 1, wordBreak: 'break-word', color: 'black' }}><del style={{ fontFamily: 'cursive' }}>&#8377; {li.strike_price}</del></Typography>
-                                <Typography sx={{ flex: 0.5, color: 'black', textAlign: "center" }} >4.2</Typography>
+                                <Typography sx={{ flex: 0.5, color: 'black', textAlign: "center" }} >{li.rating}</Typography>
                                 <Typography sx={{ flex: 1, color: 'black', wordBreak: 'break-word', textAlign: "center" }} >{li.size}</Typography>
                                 <Typography sx={{ flex: 1, color: 'black', wordBreak: 'break-word', textAlign: "center" }} >{li.color}</Typography>
                                 <Typography sx={{ flex: 1, color: 'black', textAlign: "center" }} >{li.count}</Typography>
