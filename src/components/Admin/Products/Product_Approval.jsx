@@ -195,8 +195,6 @@ const Product_Approval = (props) => {
                             onChange={(e) => setStatus(e.target.value)}>
                             <MenuItem value='approved'>approved</MenuItem>
                             <MenuItem value='rejected'>rejected</MenuItem>
-                            <MenuItem value='submitted' disabled={true} >submitted</MenuItem>
-                            <MenuItem value='resubmitted' disabled={true} >resubmitted</MenuItem>
                         </Select>
                         <br></br>
                         <textarea style={{ padding: '5px 10px', marginTop: '20px', width: '500px', height: "100px", resize: 'vertical', maxHeight: "150px", outline: "none" }}
