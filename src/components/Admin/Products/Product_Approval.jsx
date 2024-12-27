@@ -134,7 +134,7 @@ const Product_Approval = (props) => {
         }
     }, [aprflag])
     useEffect(() => {
-        if (reason.length > 0) {
+        if (reason.length > 0 && reason != undefined) {
             setDisable1(false)
         }
     }, [reason])
