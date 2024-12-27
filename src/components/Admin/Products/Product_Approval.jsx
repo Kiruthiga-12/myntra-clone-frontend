@@ -216,7 +216,7 @@ const Product_Approval = (props) => {
                                 onChange={(e) => setStatus(e.target.value)}>
                                 <MenuItem value='rejected'>rejected</MenuItem>
                             </Select>}
-                        {status == 'submitted' || status == 'resubmitted' &&
+                        {(status == 'submitted' || status == 'resubmitted') &&
                             <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
                                 onChange={(e) => {
                                     setStatus(e.target.value)
