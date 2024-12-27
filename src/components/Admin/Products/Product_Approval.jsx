@@ -9,10 +9,10 @@ const Product_Approval = (props) => {
 
     //flags
     const [editflag, setEditFlag] = useState(false)
-    const [disab1, setDisable1] = useState(false)
-    const [disab2, setDisable2] = useState(false)
-    const [disab3, setDisable3] = useState(false)
-    const [disabText, setDisableText] = useState(false);
+    const [disab1, setDisable1] = useState(true)
+    const [disab2, setDisable2] = useState(true)
+    const [disab3, setDisable3] = useState(true)
+    const [disabText, setDisableText] = useState(true);
     //storing value
     const [product_id, setProductId] = useState('');
     const [comp_name, setCompName] = useState('');
