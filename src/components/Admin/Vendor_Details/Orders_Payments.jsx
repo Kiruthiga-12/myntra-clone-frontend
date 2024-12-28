@@ -83,7 +83,6 @@ const Orders_Payments = (props) => {
                                                 {refunddet.length > 0 && refunddet.map((li1) => {
                                                     return (<>
                                                         {li.order_id == li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund done</td>}
-                                                        {li.order_id != li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund to be done</td>}
                                                     </>)
 
                                                 })}
