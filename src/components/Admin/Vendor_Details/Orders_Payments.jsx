@@ -78,8 +78,7 @@ const Orders_Payments = (props) => {
                                                         let final = refunddet.filter((li1) =>
                                                             li.order_id == li1.order_id ? true : false
                                                         )
-                                                        console.log(final)
-                                                        txt = (final == true) ? 'refund done' : 'refund to be done'
+                                                        txt = (final.lenth > 0) ? 'refund done' : 'refund to be done'
                                                     }
                                                 }
                                             }
