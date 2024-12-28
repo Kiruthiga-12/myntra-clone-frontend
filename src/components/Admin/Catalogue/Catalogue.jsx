@@ -172,6 +172,7 @@ const Catalogue = () => {
                                             await setEditSubCat(false)
                                             await setEditSubCat(true)
                                             setEditSubCatValue(e.target.previousSibling.innerText)
+                                            setDiv1(li.category);
                                         }} />
                                     <DeleteIcon sx={{ flex: 2, cursor: 'pointer', color: "black" }}
                                         onClick={async (e) => {
@@ -180,6 +181,7 @@ const Catalogue = () => {
                                             let modeicon = e.target.previousElementSibling
                                             let deleteicon = modeicon.previousElementSibling.innerText
                                             setDeleteSubCatValue(deleteicon)
+                                            setDiv1(li.category);
                                         }} />
                                 </ListItemButton>
                             )
@@ -205,6 +207,8 @@ const Catalogue = () => {
                                             await setEditProductCat(false)
                                             await setEditProductCat(true)
                                             setEditProductValue(e.target.previousSibling.innerText)
+                                            setDiv1(li.category);
+                                            setDiv2(li.subcategory);
                                         }} />
                                     <DeleteIcon sx={{ flex: 2, cursor: 'pointer', color: "black" }}
                                         onClick={async (e) => {
@@ -213,6 +217,8 @@ const Catalogue = () => {
                                             let modeicon = e.target.previousElementSibling
                                             let deleteicon = modeicon.previousElementSibling.innerText
                                             setDeleteProductValue(deleteicon)
+                                            setDiv1(li.category);
+                                            setDiv2(li.subcategory);
                                         }} />
                                 </ListItemButton>
                             )
