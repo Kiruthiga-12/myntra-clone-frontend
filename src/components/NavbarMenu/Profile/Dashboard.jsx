@@ -11,7 +11,7 @@ import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import { connect } from 'react-redux';
-import { setProfileMenu, userLogout } from '../../Redux_Store/Action_Creators';
+import { getBagCount, setProfileMenu, userLogout } from '../../Redux_Store/Action_Creators';
 import { useEffect } from 'react';
 const Dashboard = (props) => {
     useEffect(() => {
@@ -100,6 +100,7 @@ const Dashboard = (props) => {
                 component={Link} to='/' onClick={() => {
                     props.userLogout();
                     localStorage.removeItem('user_key')
+                    props.getBagCount();
                 }}>LOGOUT</Button >
 
         </>
@@ -109,7 +110,8 @@ const Dashboard = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setProfileMenu: (data) => dispatch(setProfileMenu(data)),
-        userLogout: () => dispatch(userLogout())
+        userLogout: () => dispatch(userLogout()),
+        getBagCount: () => dispatch(getBagCount())
     }
 }
 
