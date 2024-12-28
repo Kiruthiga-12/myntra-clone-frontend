@@ -46,7 +46,7 @@ import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loader from './components/Loader/Loader';
-import { userLogout, adminLogout, vendorLogout } from './components/Redux_Store/Action_Creators';
+import { userLogout, adminLogout, vendorLogout, getBagCount } from './components/Redux_Store/Action_Creators';
 function App(props) {
   const [catgroup, setCatGroup] = useState([]);
   const [prodgroup, setProductGroup] = useState([]);
@@ -70,9 +70,9 @@ function App(props) {
         e.preventDefault()
     }
     //right click event
-    // document.oncontextmenu = (e) => {
-    //   e.preventDefault();
-    // }
+    document.oncontextmenu = (e) => {
+      e.preventDefault();
+    }
     //reload button in browser
     window.onbeforeunload = function () {
       localStorage.removeItem('admin_key');
@@ -81,6 +81,7 @@ function App(props) {
       props.userLogout();
       props.adminLogout();
       props.vendorLogout();
+      props.getBagCount();
       return "Are you sure you want to refresh the page?";
     }
   })
@@ -149,7 +150,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     userLogout: () => dispatch(userLogout()),
     adminLogout: () => dispatch(adminLogout()),
-    vendorLogout: () => dispatch(vendorLogout())
+    vendorLogout: () => dispatch(vendorLogout()),
+    getBagCount: () => dispatch(getBagCount())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
