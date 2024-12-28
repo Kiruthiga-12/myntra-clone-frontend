@@ -34,17 +34,15 @@ const Pay_To_User = (props) => {
                 setLoader(false);
             }))
     }, [])
-    useEffect(() => {
+      useEffect(() => {
         if (innerloop.length > 0) {
-            let price = 0;
-            innerloop.map((li) => {
-                price = price + Number(li.price);
-                setTotalAmount(price);
-            })
+            if (innerloop[0].order_status == 'cancelled') {
+                setTotalAmount(innerloop[0].total_amount);
+            }
         }
     }, [innerloop])
     useEffect(() => {
-        if (val == 'pay to user' && total_amount > 0) {
+        if (val == 'pay to user' && total_amount > 0 && refunddet.length == 0) {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/payment_redirect`, {
                 email: props.email,
                 total_amount: total_amount,
