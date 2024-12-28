@@ -34,8 +34,8 @@ const Profile = (props) => {
     const [add_userdet, setAddUserDet] = useState();
     const [msg, setMsg] = useState();
     useEffect(() => {
-        if (props.profilemenu != '')
-            props.setProfileMenu('dashboard');
+        // if (props.profilemenu != '')
+        //     props.setProfileMenu('dashboard');
         props.setNavBar('navbar');
         props.setFooter('footer');
         setUserId(props.user.user_id);
