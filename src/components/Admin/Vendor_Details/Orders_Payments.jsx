@@ -80,6 +80,12 @@ const Orders_Payments = (props) => {
                                             <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>{date}</td>
                                             {li.order_status != 'cancelled' && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>{payment}</td>}
                                             {li.order_status == 'cancelled' && <>
+                                               {refunddet.length > 0 && refunddet.map((li1) => {
+                                                    return (<>
+                                                        {li.order_id != li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund to be done</td>}
+                                                    </>)
+
+                                                })}
                                                 {refunddet.length > 0 && refunddet.map((li1) => {
                                                     return (<>
                                                         {li.order_id == li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund done</td>}
