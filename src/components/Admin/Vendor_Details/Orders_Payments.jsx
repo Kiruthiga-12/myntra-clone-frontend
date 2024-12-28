@@ -69,6 +69,20 @@ const Orders_Payments = (props) => {
                                         let txt = '';
                                         if (li.order_status != 'cancelled')
                                             txt = 'Payment Done';
+                                        else if (li.order_status == 'cancelled') {
+                                            {
+                                                if (refunddet.length == 0)
+                                                    txt = 'refund to be done'
+                                                else if (refunddet.length > 0) {
+                                                    {
+                                                        let final = refunddet.filter((li1) =>
+                                                            li.order_id == li1.order_id ? true : false
+                                                        )
+                                                        txt = (final == true) ? 'refund done' : 'refund to be done'
+                                                    }
+                                                }
+                                            }
+                                        }
                                         return txt;
                                     }
                                     let payment = f1();
@@ -78,22 +92,7 @@ const Orders_Payments = (props) => {
                                             <td style={{ padding: "10px", width: '10%', textAlign: 'center' }}>{li.order_id}</td>
                                             <td style={{ padding: "10px", width: '20%', textAlign: 'center' }}>{li.order_status}</td>
                                             <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>{date}</td>
-                                            {li.order_status != 'cancelled' && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>{payment}</td>}
-                                            {li.order_status == 'cancelled' && <>
-                                               {refunddet.length > 0 && refunddet.map((li1) => {
-                                                    return (<>
-                                                        {li.order_id != li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund to be done</td>}
-                                                    </>)
-
-                                                })}
-                                                {refunddet.length > 0 && refunddet.map((li1) => {
-                                                    return (<>
-                                                        {li.order_id == li1.order_id && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund done</td>}
-                                                    </>)
-
-                                                })}
-                                                {refunddet.length == 0 && <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>refund to be done</td>}
-                                            </>}
+                                            <td style={{ padding: "10px", width: '25%', textAlign: 'center' }}>{payment}</td>
                                             <td style={{ padding: "10px", width: '10%', textAlign: 'center' }}>Rs.{li.total_amount}</td>
                                             <td style={{ padding: "10px", width: '10%', textAlign: 'center' }}>
                                                 <Button sx={{
