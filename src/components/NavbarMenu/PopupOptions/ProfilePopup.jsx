@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogContentText, Typography, Button, ListItemButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setProfileMenu, userLogout } from '../../Redux_Store/Action_Creators';
+import { getBagCount, setProfileMenu, userLogout } from '../../Redux_Store/Action_Creators';
 const ProfilePopup = (props) => {
     return (<>
         <Dialog open={props.show_profile} hideBackdrop sx={{
@@ -84,6 +84,7 @@ const ProfilePopup = (props) => {
                             onClick={() => {
                                 props.userLogout();
                                 localStorage.removeItem('user_key');
+                                props.getBagCount();
                             }}>Logout</ListItemButton>
                     </>}
                 </DialogContentText>
@@ -102,7 +103,8 @@ const mapStateToProps = (cstate) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         userLogout: () => dispatch(userLogout()),
-        setProfileMenu: (data) => dispatch(setProfileMenu(data))
+        setProfileMenu: (data) => dispatch(setProfileMenu(data)),
+        getBagCount: () => dispatch(getBagCount())
     }
 }
 
