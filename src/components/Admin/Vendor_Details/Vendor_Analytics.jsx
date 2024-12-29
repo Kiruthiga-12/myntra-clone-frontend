@@ -104,7 +104,7 @@ const Vendor_Analytics = (props) => {
     }, [aprflag])
     useEffect(() => {
         if (reason.length > 0 && reason != 'undefined') {
-            setDisable1(false)
+            setDisable(false)
         }
     }, [reason])
     return (
