@@ -10,7 +10,8 @@ const Vendor_Analytics = (props) => {
     const [reason, setReason] = useState('');
     const [loader, setLoader] = useState(true)
     const [disab, setDisable] = useState(true);
-    const [disab2, setDisable2] = useState(false);
+    const [disab2, setDisable2] = useState(true);
+    const [disabText, setDisableText] = useState(true);
     //async values
     const [gst, setGst] = useState([]);
     const [basic, setBasicInfo] = useState([]);
@@ -19,6 +20,7 @@ const Vendor_Analytics = (props) => {
     const [brand, setBrand] = useState([]);
     const [declaration, setDeclaration] = useState([]);
     const [email, setEmail] = useState();
+    const [aprflag, setAprFlag] = useState(false)
     const vendor_approval = 'You can appprove/ reject or delete vendor details if already approved'
     useEffect(() => {
         const gst = axios.get(`${process.env.REACT_APP_BACKEND_URL}/gst_getdetails_email?vendor_id=${props.vendor_id}`)
@@ -84,11 +86,27 @@ const Vendor_Analytics = (props) => {
         toast.info('You can appprove/ reject or delete vendor details if already approved', { toastId: 'vendor_approval' })
     }, [])
     useEffect(() => {
-        if (status.length > 0 && status !== 'submitted' && status !== 'resubmitted' && reason.length > 0 && reason != ' ')
-            setDisable(false);
-        else if (status.length == 0 && status === 'submitted' && status === 'resubmitted' && reason.length === 0 && reason == ' ')
+        if (status == 'approved') {
             setDisable(true);
-    }, [status, reason])
+            setDisable2(false);
+            setDisableText(true);
+        }
+        else if (status == 'rejected') {
+            setDisable(true);
+            setDisable2(true);
+            setDisableText(true);
+        }
+    }, [status])
+    useEffect(() => {
+        if (aprflag == true) {
+            setDisableText(false);
+        }
+    }, [aprflag])
+    useEffect(() => {
+        if (reason.length > 0 && reason != 'undefined') {
+            setDisable1(false)
+        }
+    }, [reason])
     return (
         <>
             {loader == true ? <Loader /> : <>
@@ -230,17 +248,33 @@ const Vendor_Analytics = (props) => {
                     <Typography sx={{ padding: '1px 20px', fontSize: '20px', fontFamily: 'cursive', color: 'white', backgroundColor: 'purple', width: '150px' }}>Vendor Status
                     </Typography>
                     <Typography sx={{ marginTop: '30px', color: 'blue', fontFamily: "cursive", fontSize: '16px' }} >Status : </Typography>
-                    <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
-                        onChange={(e) => setStatus(e.target.value)}>
-                        <MenuItem value='approved'>approved</MenuItem>
-                        <MenuItem value='rejected'>rejected</MenuItem>
-                        <MenuItem value='submitted'>submitted</MenuItem>
-                        <MenuItem value='resubmitted'>resubmitted</MenuItem>
-                    </Select>
+                    {status == 'approved' &&
+                        <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                            onChange={(e) => setStatus(e.target.value)}>
+                            <MenuItem value='approved'>approved</MenuItem>
+                        </Select>
+                    }
+                    {status == 'rejected' &&
+                        <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                            onChange={(e) => setStatus(e.target.value)}>
+                            <MenuItem value='rejected'>rejected</MenuItem>
+                        </Select>
+                    }
+                    {(status == 'submitted' || status == 'resubmitted') &&
+                        <Select value={status} variant='standard' sx={{ marginTop: "20px", width: '150px' }}
+                            onChange={(e) => {
+                                setStatus(e.target.value)
+                                setAprFlag(true)
+                            }
+                            }>
+                            <MenuItem value='approved'>approved</MenuItem>
+                            <MenuItem value='rejected'>rejected</MenuItem>
+                        </Select>
+                    }
                     <br></br>
                     <textarea style={{ padding: '5px 10px', marginTop: '20px', width: '500px', height: "100px", resize: 'vertical', maxHeight: "150px", outline: "none" }}
                         onChange={(e) => setReason(e.target.value)} placeholder='Please Enter your comments...'
-                        value={reason} id='comments_box'></textarea>
+                        value={reason} id='comments_box' disabled={disabText}></textarea>
                     <br></br>
                 </Box >
                 <br></br>
