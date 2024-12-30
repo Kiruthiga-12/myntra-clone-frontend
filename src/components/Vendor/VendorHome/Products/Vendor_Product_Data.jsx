@@ -9,6 +9,7 @@ const Vendor_Product_Data = (props) => {
 
     const [arr, setArr] = useState([]);
     const [email, setEmail] = useState();
+    const [soldData, setSoldData] = useState([]);
 
     //flag
     const [editflag, setEditFlag] = useState(false);
@@ -22,6 +23,10 @@ const Vendor_Product_Data = (props) => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_product?email=${props.email}&category=${catamp}&subcategory=${subamp}&prodcategory=${prodamp}`)
             .then((data) => {
                 (data.data.length > 0) ? setArr(data.data.slice()) : setArr([])
+            })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/get_sold_count?vendor_email=${props.email}`)
+            .then((data) => {
+                (data.data.length > 0) ? setSoldData(data.data.slice()) : setSoldData([])
                 setLoader(false);
             })
         setEmail(props.email);
@@ -62,7 +67,14 @@ const Vendor_Product_Data = (props) => {
                                     <Typography sx={{ flex: 1, wordBreak: 'break-word', color: 'black', textAlign: "center", color: 'white', backgroundColor: 'green', padding: '4px 2px' }} >{li.product_status}</Typography>
                                     <Typography sx={{ flex: 1, wordBreak: 'break-word', color: 'black', textAlign: "center" }}>&#8377; {li.price}</Typography>
                                     <Typography sx={{ flex: 1, wordBreak: 'break-word', color: 'black', textAlign: "center" }}><del style={{ fontFamily: 'cursive' }}>&#8377; {li.strike_price}</del></Typography>
-                                    <Typography sx={{ flex: 1, color: 'black', textAlign: "center" }} >4</Typography>
+                                    {soldData.length > 0 && soldData.map((li1) => {
+                                        return (<>
+                                            {
+                                                (li.product_id == li1._id) && <Typography sx={{ flex: 1, color: 'black', textAlign: "center" }} >{li1.count}</Typography>
+                                            }
+                                        </>)
+                                    })}
+                                    {soldData.length == 0 && <Typography sx={{ flex: 1, color: 'black', textAlign: "center" }} >0</Typography>}
                                     <Typography sx={{ flex: 1, color: 'black', wordBreak: 'break-word', textAlign: "center" }} >{li.product_keyword}</Typography>
                                     <Typography sx={{ flex: 1, color: 'black', wordBreak: 'break-word', textAlign: "center" }} >{new Date(li.product_date).toLocaleString('hi-EN').toLocaleUpperCase()}</Typography>
                                     <Typography sx={{ flex: 1.5, color: 'black', textAlign: "center" }} >
