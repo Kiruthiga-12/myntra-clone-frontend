@@ -41,12 +41,12 @@ const RegisterStep2Pwd = (props) => {
 
     useEffect(() => {
         if (timerflag === true) {
+            sec = 30;
             setDisabOtp(true)
             let timerid = setInterval(async () => {
                 if (sec >= 1 && sec <= 30) {
                     const date = await new Date(new Date().setSeconds(sec));
                     await setTimer(date.getSeconds());
-                    setOtpText(`resend otp in ${timer}s`);
                     await (--sec);
                 }
                 else if (sec === 0) {
@@ -61,6 +61,9 @@ const RegisterStep2Pwd = (props) => {
             setDisabOtp(false)
         }
     }, [timerflag])
+    useEffect(() => {
+        setOtpText(`resend otp in ${timer}s`);
+    }, [timer])
 
     useEffect(() => {
         if (targetflag) {
@@ -98,7 +101,6 @@ const RegisterStep2Pwd = (props) => {
                             })
                                 .then((data) => {
                                     sec = 30;
-                                    setTimerFlag(true);
                                 })
                         }}>{otpText}</Button>
                     <br></br>
