@@ -28,7 +28,6 @@ const RegisterStep2Pwd = (props) => {
             setMsg('Invalid Resource');
         }
         else if ((props.get_vendor_mobile != '' && props.get_vendor_mobile != undefined) && (props.get_vendor_email != ' ' && props.get_vendor_email != undefined)) {
-            setMsg('');
             setTimerFlag(true)
         }
     }, [])
