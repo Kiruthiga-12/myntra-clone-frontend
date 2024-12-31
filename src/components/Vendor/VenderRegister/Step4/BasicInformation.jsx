@@ -98,11 +98,9 @@ const BasicInformation = (props) => {
             }
             else if (percentage == 17) {
                 setEnable2(false);
-
                 setState('Basic Information');
             }
             else if (percentage == 34) {
-
                 setEnable2(false);
                 setEnable4(false);
                 setState('Warehouse Details');
@@ -158,12 +156,13 @@ const BasicInformation = (props) => {
                             }}
                                 onClick={() => {
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '0'
                                     })
                                         .then((data) => {
                                             if (data.data) {
+                                                console.log('gst')
                                                 setState('Gstin Check');
                                                 props.changeStatus(Math.round(Math.random() * 200))
                                             }
@@ -181,7 +180,7 @@ const BasicInformation = (props) => {
                             }} disableTouchRipple disabled={step2enable}
                                 onClick={() =>
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '1'
                                     })
@@ -203,7 +202,7 @@ const BasicInformation = (props) => {
                             }} disableTouchRipple disabled={step4enable}
                                 onClick={() => {
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '2'
                                     })
@@ -227,7 +226,7 @@ const BasicInformation = (props) => {
                             }} disableTouchRipple disabled={step5enable}
                                 onClick={() => {
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '3'
                                     })
@@ -250,7 +249,7 @@ const BasicInformation = (props) => {
                             }} disableTouchRipple disabled={step6enable}
                                 onClick={() => {
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '4'
                                     })
@@ -273,7 +272,7 @@ const BasicInformation = (props) => {
                             }} disableTouchRipple disabled={step7enable}
                                 onClick={() => {
                                     axios.put(`${process.env.REACT_APP_BACKEND_URL}/percentage_update`, {
-                                        vendor_id: props.vendorid,
+                                        vendor_id: vendor_id,
                                         email: email,
                                         stepno: '5'
                                     })
@@ -320,8 +319,7 @@ const BasicInformation = (props) => {
 const mapStateToProps = (cstate) => {
     return {
         current_state: cstate.current_state,
-        vendor_login: cstate.vendor_login,
-        vendor_reg_perc: cstate.vendor_reg_perc
+        vendor_login: cstate.vendor_login
     }
 }
 const mapDispatchToProps = (dispatch) => {
