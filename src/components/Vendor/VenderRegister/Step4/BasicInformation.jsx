@@ -162,7 +162,6 @@ const BasicInformation = (props) => {
                                     })
                                         .then((data) => {
                                             if (data.data) {
-                                                console.log('gst')
                                                 setState('Gstin Check');
                                                 props.changeStatus(Math.round(Math.random() * 200))
                                             }
