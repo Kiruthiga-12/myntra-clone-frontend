@@ -10,11 +10,14 @@ import { setNavBar, setFooter } from "../../../Redux_Store/Action_Creators";
 const RegisterStep2Pwd = (props) => {
     const [checkValue, setCheckState] = useState(false);
     const [timer, setTimer] = useState(30);
-    const [timerflag, setTimerFlag] = useState(true);
+    const [timerflag, setTimerFlag] = useState();
     const [targetlink, setTargetLink] = useState('/partnerhome/register_step3');
     const [targetflag, setTargetFlag] = useState('');
     const [otpvalue, setOtpValue] = useState('');
     const [msg, setMsg] = useState();
+    const [otpText, setOtpText] = useState();
+    const [disabOtp, setDisabOtp] = useState();
+    const [disabSubmit, setDisabledSubmit] = useState(true);
     let sec = 30;
     useEffect(() => {
         document.title = 'Sell with Myntra';
@@ -24,6 +27,10 @@ const RegisterStep2Pwd = (props) => {
         if ((props.get_vendor_mobile == '' || props.get_vendor_mobile == undefined) || (props.get_vendor_email == ' ' || props.get_vendor_email == undefined)) {
             setMsg('Invalid Resource');
         }
+        else if ((props.get_vendor_mobile != '' && props.get_vendor_mobile != undefined) && (props.get_vendor_email != ' ' && props.get_vendor_email != undefined)) {
+            setMsg('');
+            setTimerFlag(true)
+        }
     }, [])
     useEffect(() => {
         if (document.getElementById('registerandpwd') != undefined)
@@ -31,27 +38,29 @@ const RegisterStep2Pwd = (props) => {
                 document.getElementById('registerandpwd').type = 'text';
             else if (checkValue === false)
                 document.getElementById('registerandpwd').type = 'password';
-        function pwd1() {
-            if (timerflag === false) {
-                if (document.getElementById('resend_otp') != undefined)
-                    document.getElementById('resend_otp').innerText = `resend otp in ${timer}s`
-            }
-        }
-        pwd1();
-    }, [checkValue, timerflag])
+    }, [checkValue])
+
     useEffect(() => {
-        let timerid = setInterval(async () => {
-            if (sec >= 1 && sec <= 30) {
-                const date = await new Date(new Date().setSeconds(sec));
-                await setTimer(date.getSeconds());
-                await (--sec);
-            }
-            else if (sec === 0) {
-                clearInterval(timerid);
-                if (document.getElementById('resend_otp') != undefined)
-                    document.getElementById('resend_otp').innerText = 'resend OTP';
-            }
-        }, 1000);
+        if (timerflag === true) {
+            setDisabOtp(true)
+            let timerid = setInterval(async () => {
+                if (sec >= 1 && sec <= 30) {
+                    const date = await new Date(new Date().setSeconds(sec));
+                    await setTimer(date.getSeconds());
+                    setOtpText(`resend otp in ${timer}s`);
+                    await (--sec);
+                }
+                else if (sec === 0) {
+                    clearInterval(timerid);
+                    setTimerFlag(false)
+                }
+            }, 1000);
+        }
+
+        else if (timerflag === false) {
+            setOtpText('resend OTP');
+            setDisabOtp(false)
+        }
     }, [timerflag])
 
     useEffect(() => {
@@ -62,6 +71,10 @@ const RegisterStep2Pwd = (props) => {
             setTargetLink('/partnerhome/register_step2_pwd')
         }
     }, [targetflag])
+    useEffect(() => {
+        if (otpvalue > 1)
+            setDisabledSubmit(false)
+    }, [otpvalue])
     return (
         <>
             {msg == undefined && <>
@@ -80,23 +93,22 @@ const RegisterStep2Pwd = (props) => {
                     <FormControlLabel sx={{ marginLeft: '-260px', marginTop: '20px' }} label='Show OTP' control={<Checkbox
                         onChange={(e, newValue) => setCheckState(newValue)} />}></FormControlLabel><br />
                     <Button id='resend_otp' disableTouchRipple style={{ fontSize: '16px', textTransform: 'none', backgroundColor: 'transparent', marginLeft: '250px', display: 'inline-block', color: "blue", textDecoration: 'underline' }}
-                        onClick={async () => {
+                        disabled={disabOtp} onClick={async () => {
                             axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_otp_register`, {
                                 email: props.get_vendor_email
                             })
-                                .then((data) => { })
-
-                            setTimerFlag(true);
-                            await setTimerFlag(false);
-                            sec = 30;
-                        }}>resend otp in {timer}s</Button>
+                                .then((data) => {
+                                    sec = 30;
+                                    setTimerFlag(true);
+                                })
+                        }}>{otpText}</Button>
                     <br></br>
                     <span id='otp_error' style={{ color: 'red', fontSize: '14px', fontFamily: 'cursive', marginLeft: '-230px', marginTop: '10px', display: 'inline-block' }}></span>
                     <br></br>
                     <Button sx={{
                         color: 'white', backgroundColor: 'rgb(243, 66, 140)', fontWeight: 'bold', marginTop: '30px',
                         marginLeft: '-290px', padding: '5px 15px', '&:hover': { backgroundColor: 'rgb(243, 66, 140)' }
-                    }} component={Link} to={targetlink}
+                    }} component={Link} to={targetlink} disabled={disabSubmit}
                         onClick={() => {
                             axios.post(`${process.env.REACT_APP_BACKEND_URL}/vendor_otp_compare`, {
                                 email: props.get_vendor_email,
