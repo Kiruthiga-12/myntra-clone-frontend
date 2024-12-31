@@ -74,7 +74,7 @@ const RegisterStep2Pwd = (props) => {
         }
     }, [targetflag])
     useEffect(() => {
-        if (otpvalue > 1)
+        if (otpvalue.length > 1)
             setDisabledSubmit(false)
     }, [otpvalue])
     return (
@@ -100,7 +100,7 @@ const RegisterStep2Pwd = (props) => {
                                 email: props.get_vendor_email
                             })
                                 .then((data) => {
-                                    sec = 30;
+                                    setTimerFlag(true)
                                 })
                         }}>{otpText}</Button>
                     <br></br>
