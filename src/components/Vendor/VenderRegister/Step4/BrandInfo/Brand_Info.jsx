@@ -367,6 +367,29 @@ const Brand_Info = (props) => {
                     {(editflag === true && createflag === false && nodataflag == true) && <>
                         <Button variant='outlined' sx={{ marginLeft: '600px', marginTop: '20px', color: 'blue', backgroundColor: 'white', border: '1px soldi blue', borderRadius: '10px' }}
                             disabled={disab1} onClick={(e) => {
+                                function f0() {
+                                    //if image not changed.
+                                    if (imagechanged == false) {
+                                        // generate file from base64 string
+                                        const dataURLtoFile = (dataurl, filename) => {
+                                            const arr = dataurl.split(',')
+                                            const mime = arr[0].match(/:(.*?);/)[1]
+                                            const bstr = atob(arr[1])
+                                            let n = bstr.length
+                                            const u8arr = new Uint8Array(n)
+                                            while (n) {
+                                                u8arr[n - 1] = bstr.charCodeAt(n - 1)
+                                                n -= 1 // to make eslint happy
+                                            }
+                                            return new File([u8arr], filename, { type: mime })
+                                        }
+                                        const file = dataURLtoFile(displayimage, 'brandinfo.png');
+                                        if (file != undefined) {
+                                            setFileName(file);
+                                        }
+                                    }
+                                }
+                                f0();
                                 setDisable2(false);
                                 const formData = new FormData();
                                 formData.append('vendor_id', props.vendorid);
