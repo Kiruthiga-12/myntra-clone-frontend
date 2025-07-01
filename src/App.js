@@ -63,17 +63,17 @@ function App(props) {
   }, [])
   useEffect(() => {
     //key event
-    document.onkeydown = (e) => {
-      if (e.key == 'F5')
-        e.preventDefault()
-      else if ((e.ctrlKey && e.key == 'r') || (e.ctrlKey && e.key == 'R'))
-        e.preventDefault()
-    }
+    // document.onkeydown = (e) => {
+    //   if (e.key == 'F5')
+    //     e.preventDefault()
+    //   else if ((e.ctrlKey && e.key == 'r') || (e.ctrlKey && e.key == 'R'))
+    //     e.preventDefault()
+    // }
     //right click event
-    document.oncontextmenu = (e) => {
-      e.preventDefault();
-    }
-    //reload button in browser
+    // document.oncontextmenu = (e) => {
+    //   e.preventDefault();
+    // }
+    // //reload button in browser
     window.onbeforeunload = function () {
       localStorage.removeItem('admin_key');
       localStorage.removeItem('vendor_key');
